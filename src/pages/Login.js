@@ -53,7 +53,7 @@ export default function Login({setToken}) {
         <div className="container h-full p-10 mx-auto">
         <div
             className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
-            <div className="w-auto border border-gray-300  p-4">
+          
             <div
                 className="block rounded-3xl"
                 style={{
@@ -66,15 +66,12 @@ export default function Login({setToken}) {
                     {/* <!--Logo--> */}
                     <NavLink to='/'>
                         <div className="text-center">
-                        <h3 className='h3'>Western Ambience Bliss</h3>
+                        <h3 className='h3 font-primary text-accent'>Western Ambience Bliss</h3>
                         </div>
-                    </NavLink>
-                    <div className='text-center'>
-                        <p className="mb-4 mt-6 pb-1 text-2xl font-semibold ">Foremost in quality</p>
-                    </div>
+                    </NavLink>                    
                     <form onSubmit={handleSubmit}>
                         <div className='text-center'>
-                        <p className="mb-2 pb-1 text-xl font-semibold">Please login to your account</p>
+                        <p className='uppercase font-tertiary tracking-[6px] mb-5'>Please login to your account</p>
                         </div>
                         
                         {/* <!--Username input--> */}
@@ -111,7 +108,7 @@ export default function Login({setToken}) {
                         <div className="mb-12 pb-1 pt-1 text-center">
                         <button
                         
-                            className="mb-3 inline-block w-full rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                        className='btn btn-secondary btn-sm max-w-[240px] mx-auto'
                             type="submit"
                             disabled={isLoading}
                             data-te-ripple-init
@@ -123,7 +120,7 @@ export default function Login({setToken}) {
                         </button>
 
                         {/* <!--Forgot password link--> */}
-                        <Link to="/reset">Forgot password?</Link>
+                        <Link to="/reset" className='transition hover:text-accent '>Forgot password?</Link>
                         </div>
 
                         {/* <!--Register button--> */}
@@ -132,7 +129,7 @@ export default function Login({setToken}) {
                         <Link
                             to="/signup"
                             type="button"
-                            className="inline-block rounded-full border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal  text-white transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                            className='btn btn-secondary btn-sm max-w-[240px] mx-auto'
                             data-te-ripple-init
                             data-te-ripple-color="light"
                             style={{
@@ -148,7 +145,7 @@ export default function Login({setToken}) {
             </div>
             </div>
         </div>
-        </div>
+        
     </section>
   )
 }

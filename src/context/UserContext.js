@@ -1,44 +1,27 @@
+
+
 // import React,  { useContext, createContext, useEffect, useState}  from 'react'
+// import { useNavigate } from 'react-router-dom';
 // //data
-// import {roomData} from "../data"
+
 
 // //create context
-// export const RoomContext = createContext()
+// export const UserContext = createContext()
 
-// function RoomProvider({children}) {
-//     const [rooms, setRooms] = useState(roomData)
-//     console.log(rooms);
+// function UserProvider({children}) {
+//     const navigate = useNavigate();
+    
+
+//     const logout = () => {
+//       localStorage.removeItem('token');
+//       setToken(null);
+//     };
+
 //   return (
-//    <RoomContext.Provider value = {{rooms}}>
+//    <UserContext.Provider value = {{token}}>
 //     {children}
-//    </RoomContext.Provider>
+//    </UserContext.Provider>
 //   )
 // }
 
-// export default RoomProvider
-
-import React,  { useContext, createContext, useEffect, useState}  from 'react'
-import { useNavigate } from 'react-router-dom';
-//data
-
-
-//create context
-export const UserContext = createContext()
-
-function UserProvider({children}) {
-    const navigate = useNavigate();
-    
-
-    const logout = () => {
-      localStorage.removeItem('token');
-      setToken(null);
-    };
-
-  return (
-   <UserContext.Provider value = {{token}}>
-    {children}
-   </UserContext.Provider>
-  )
-}
-
-export default UserProvider
+// export default UserProvider

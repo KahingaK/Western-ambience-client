@@ -17,7 +17,7 @@ function HeroSlider() {
 
     const Slides = [
         { 
-            title: "Your Luxury Hotel",
+            title: "Foremost in quality",
             bg: Img1,
             btnText:"Room & Suites"
 

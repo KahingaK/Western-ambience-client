@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import RoomList from './components/RoomList';
+import RoomDetails from './pages/RoomDetails';
 //react router
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import { FaSteamSquare } from 'react-icons/fa';
@@ -36,7 +37,7 @@ function App() {
             <Route path='/' element = {<Home/>}></Route>
             <Route path="/login" element={<Login setToken = {setToken}/>}>login</Route>
             <Route path="/signup" element={<Signup setToken = {setToken}/>}>signup</Route>
-
+            <Route path = "/room/:id" element = {<RoomDetails/>}/>
         </Routes>
       <Footer/>
       </BrowserRouter>
