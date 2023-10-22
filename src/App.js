@@ -1,4 +1,4 @@
-import React , {useState }from 'react'
+import React , {useState, useContext, useMemo }from 'react'
 import './App.css';
 //components
 import Home from './pages/Home';
@@ -12,19 +12,18 @@ import RoomDetails from './pages/RoomDetails';
 //react router
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import { FaSteamSquare } from 'react-icons/fa';
+import { UserContext } from './context/UserContext';
 
 
 
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
+ 
 
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-  };
   
+  
+
 
 
 
@@ -35,8 +34,8 @@ function App() {
         <Routes>
 
             <Route path='/' element = {<Home/>}></Route>
-            <Route path="/login" element={<Login setToken = {setToken}/>}>login</Route>
-            <Route path="/signup" element={<Signup setToken = {setToken}/>}>signup</Route>
+            <Route path="/login" element={<Login />}>login</Route>
+            <Route path="/signup" element={<Signup />}>signup</Route>
             <Route path = "/room/:id" element = {<RoomDetails/>}/>
         </Routes>
       <Footer/>

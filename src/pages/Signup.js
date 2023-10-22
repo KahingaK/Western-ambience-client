@@ -54,118 +54,108 @@ function Signup({setToken}) {
       }
     };
   return (
-  <section className="gradient-form h-screen bg-white dark:bg-white flex items-center justify-center h-screen">
-        <div className="container h-full p-10 mx-auto">
-        <div
-            className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
-            <div className="w-auto border border-gray-300 rounded-2xl p-4">
-            <div
-                className="block rounded-3xl"
-                style={{
-                // background: 'linear-gradient(to top, #101F3C, white, white, white, white, white)'
-                }}>
-                <div className="g-0 lg:flex lg:flex-wrap">
-                {/* <!-- Left column container--> */}
-                
-                <div className="md:mx-6 md:p-12">
-                    {/* <!--Logo--> */}
-                    <NavLink to='/'>
-                        <div className="text-center">
-                       <h3 className='h3'>Western Ambience Bliss Hotel</h3>
-                        </div>
-                    </NavLink>
-                    <div className='text-center'>
-                        <p className="mb-4 mt-6 pb-1 text-2xl font-semibold">Foremost in Quality</p>
-                    </div>
-                    <form onSubmit={handleSubmit}>
-                    <div className='text-center'>
-                        <p className="mb-2 pb-1 text-xl font-semibold">Join the community</p>
-                    </div>
-                    {error && <div className="error text-red-500 font-bold text-center">{error}</div>} <br />
+    <section className="gradient-form min-h-screen bg-white dark:bg-white flex flex-col lg:flex-row">
+  {/* Left side with the background image */}
+  <div className="lg:w-1/2 bg-cover bg-center" style={{ backgroundImage: 'url(your-image-url.jpg)' }}>
+    <div className="w-full h-full bg-opacity-75 bg-black dark:bg-opacity-50" />
+    <div className="container mx-auto h-full flex items-center justify-center">
+      <div className="text-white text-center">
+        <h3 className="text-4xl">Western Ambience Bliss Hotel</h3>
+        <p className="text-xl font-tertiary mt-4">Foremost in Quality</p>
+      </div>
+    </div>
+  </div>
 
-                    <div className="relative mb-4" data-te-input-wrapper-init>
-                        <input
-                            type="text"
-                            value={username} 
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]"
-                            id="username"
-                            placeholder="Username"
-                            required />
-                        </div>
-
-                    <div className="relative mb-4" data-te-input-wrapper-init>
-                        <input
-                            type="email"
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]"
-                            id="email"
-                            placeholder="E-mail"
-                            required />
-                        </div>
-
-                        {/* <!--Password input--> */}
-                        <div className="relative mb-4" data-te-input-wrapper-init>
-                        <input
-                            type="password"
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]"
-                            id="password"
-                            placeholder="Password" 
-                            required/>
-                        </div>
-
-                        <div className="relative mb-4" data-te-input-wrapper-init>
-                        <input
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="peer block min-h-[auto] w-full rounded border bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]"
-                            id="confirm-password"
-                            placeholder="Confirm Password" 
-                            required/>
-                        </div>
-
-                        {/* <!--Submit button--> */}
-                        <div className="mb-2 pb-1 pt-1 text-center">
-                        <button
-                            className="mb-3 inline-block w-full rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
-                            type="submit"
-                            disabled={isLoading}
-                            data-te-ripple-init
-                            data-te-ripple-color="light"
-                            style={{
-                            background: ' #F9500D'
-                            }}>
-                            {isLoading ? 'Loading...' : 'Sign Up'}
-                        </button>
-                    </div>
-
-                    <br />
-                    <div className="flex items-center justify-between pb-6">
-                        <p className="mb-0 mr-2">Already  have an account?</p>
-                        <Link to={'/login'}
-                        type="button"
-                        className="inline-block rounded-full border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal  text-white transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-                        data-te-ripple-init
-                        data-te-ripple-color="light"
-                        style={{
-                            background: ' #F9500D'
-                        }}>
-
-                        Login
-                        </Link>
-                    </div>
-                    </form>
-                </div>
-                </div>
+  {/* Right side with the form */}
+  <div className="lg:w-1/2 p-10">
+    <div className="container h-full mx-auto">
+      <div className=" p-4">
+        <div className="container mx-auto">
+          <div className="md:mx-6 md:p-12">
+            <NavLink to="/">
+              <div className="text-center">
+                <h3 className="text-3xl font-primary text-accent">Western Ambience Bliss Hotel</h3>
+              </div>
+            </NavLink>
+            <div className="text-center mt-6">
+              <p className="text-xl font-tertiary">Join the community</p>
             </div>
-            </div>
+            <form onSubmit={handleSubmit}>
+              {error && <div className="text-red-500 font-bold text-center mt-4">{error}</div>}
+              <div className="mb-4">
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="block w-full rounded border px-3 py-2 bg-transparent outline-none"
+                  id="username"
+                  placeholder="Username"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="block w-full rounded border px-3 py-2 bg-transparent outline-none"
+                  id="email"
+                  placeholder="E-mail"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="block w-full rounded border px-3 py-2 bg-transparent outline-none"
+                  id="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="block w-full rounded border px-3 py-2 bg-transparent outline-none"
+                  id="confirm-password"
+                  placeholder="Confirm Password"
+                  required
+                />
+              </div>
+              <div className="mb-2 text-center">
+                <button
+                  className="btn btn-secondary btn-sm max-w-[240px] mx-auto"
+                  type="submit"
+                  disabled={isLoading}
+                  style={{ background: '#F9500D' }}
+                >
+                  {isLoading ? 'Loading...' : 'Sign Up'}
+                </button>
+              </div>
+              <div className="flex items-center justify-between mt-4">
+                <p>Already have an account?</p>
+                <Link
+                  to="/login"
+                  className="btn btn-secondary btn-sm max-w-[240px]"
+                  style={{ background: '#F9500D' }}
+                >
+                  Login
+                </Link>
+              </div>
+            </form>
+          </div>
         </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+ 
+ 
   )
 }
 

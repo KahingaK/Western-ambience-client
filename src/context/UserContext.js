@@ -1,27 +1,34 @@
+import React,  { useContext, createContext, useEffect, useState, useMemo}  from 'react'
+import { useNavigate } from 'react-router-dom';
+//data
 
 
-// import React,  { useContext, createContext, useEffect, useState}  from 'react'
-// import { useNavigate } from 'react-router-dom';
-// //data
+//create context
+export const UserContext = createContext()
 
 
-// //create context
-// export const UserContext = createContext()
+function UserProvider({children}) {
+    // const navigate = useNavigate();
+    const [token, setToken] = useState(localStorage.getItem('token') || null);
+    const [currentUser, setCurrentUser] = useState()
 
-// function UserProvider({children}) {
-//     const navigate = useNavigate();
+    console.log(token);
+
+    const logout = () => {
+      localStorage.removeItem('token');
+      setToken(null);
+      // navigate("/login")
     
+    };
 
-//     const logout = () => {
-//       localStorage.removeItem('token');
-//       setToken(null);
-//     };
+    const value = useMemo(() => ({ token, setToken, logout, setCurrentUser }), [token]);
 
-//   return (
-//    <UserContext.Provider value = {{token}}>
-//     {children}
-//    </UserContext.Provider>
-//   )
-// }
 
-// export default UserProvider
+  return (
+   <UserContext.Provider value = {value}>
+    {children}
+   </UserContext.Provider>
+  )
+}
+
+export default UserProvider

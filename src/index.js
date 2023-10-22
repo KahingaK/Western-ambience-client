@@ -4,14 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import RoomProvider from './context/RoomContext';
+import UserProvider from './context/UserContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <RoomProvider>
-    <App />
-   </RoomProvider>
-   
+  <UserProvider>
+    <RoomProvider>
+      <App />
+    </RoomProvider>
+    
+  </UserProvider>
+  
   </React.StrictMode>
 );
 
