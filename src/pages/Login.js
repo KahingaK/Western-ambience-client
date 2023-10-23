@@ -37,6 +37,7 @@ export default function Login() {
           response.json().then((data) => {
             console.log(data.user)
             localStorage.setItem('token', data.token);
+            localStorage.setItem('user', data.user);
             navigate("/")
             setToken(data.token)
             setCurrentUser(data.user)

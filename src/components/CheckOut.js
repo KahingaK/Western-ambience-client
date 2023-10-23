@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 //datepicker
 import DatePicker from "react-datepicker";
 
 //datepicker css
 import "react-datepicker/dist/react-datepicker.css";
 import { BsCalendar } from "react-icons/bs";
+import { RoomContext } from "../context/RoomContext";
 import "../datepicker.css";
 
 function CheckOut() {
-  const [endDate, setEndDate] = useState(false);
+ 
+  const { start , end, setEnd} = useContext(RoomContext)
+  const [ endDate,  setEndDate] = useState(false);
+  
 
   return (
     <div className=" relative flex items-center justify-end h-full">
@@ -20,9 +24,12 @@ function CheckOut() {
       
       <DatePicker
         className="w-full h-full"
-        selected={endDate}
-        placeholderText="Check in"
-        onChange={(date) => setEndDate(date)}
+        selected={end}
+        dateFormat= "dd/MM/yyyy"
+        minDate={start}
+        placeholderText="Check Out"
+        onChange={(date) => {setEndDate(date)
+        setEnd(date)}}
       />
       
       

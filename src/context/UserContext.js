@@ -10,7 +10,7 @@ export const UserContext = createContext()
 function UserProvider({children}) {
     // const navigate = useNavigate();
     const [token, setToken] = useState(localStorage.getItem('token') || null);
-    const [currentUser, setCurrentUser] = useState()
+    const [currentUser, setCurrentUser] = useState(localStorage.getItem('user') || null)
 
     console.log(token);
 
@@ -21,7 +21,7 @@ function UserProvider({children}) {
     
     };
 
-    const value = useMemo(() => ({ token, setToken, logout, setCurrentUser }), [token]);
+    const value = useMemo(() => ({ token, setToken, logout, setCurrentUser, currentUser }), [token]);
 
 
   return (

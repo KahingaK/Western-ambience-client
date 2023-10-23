@@ -36,11 +36,11 @@ function Header() {
             Contact
           </a>
           {isLoggedIn ? (
-            <button onClick={logout} className='transition hover:text-accent'>
+            <div onClick={logout} className='transition hover:text-accent cursor-pointer'>
               Logout
-            </button>
+            </div>
           ) : (
-            <Link to="/login" className='transition hover:text-accent'>
+            <Link to="/login" className='transition hover:text-accent cursor-pointer'>
               Login
             </Link>
           )}

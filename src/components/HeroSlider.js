@@ -23,13 +23,13 @@ function HeroSlider() {
 
         },
         { 
-            title: "Your Luxury Hotel",
+            title: "Foremost in quality",
             bg: Img2,
             btnText:"Room & Suites"
 
         },
         { 
-            title: "Your Luxury Hotel",
+            title: "Foremost in quality",
             bg: Img3,
             btnText:"Room & Suites"
 
@@ -52,7 +52,7 @@ function HeroSlider() {
             <SwiperSlide key={index}>
             <div  className = "h-full relative flex justify-center items-center" >
             <div className=' z-20 text-white text-center'>
-                    <div className='uppercase font-tertiary tracking-[6px] mb-5'>Just Enjoy and Relax</div>
+                    <div className='uppercase font-tertiary tracking-[6px] mb-5'>Relax and Enjoy</div>
                     <h1 className="text-[32px] font-primary uppercase tracking-[2px] max-w-[920px] lg:text-[68px] leading-tight mb-6 ">{slide.title}</h1>
                     <button  className='btn btn-lg btn-primary mx-auto'>{slide.btnText}</button>
                 </div>
