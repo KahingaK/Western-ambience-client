@@ -14,10 +14,7 @@ function CheckIn() {
 
   const [startDate, setStartDate] = useState(false)
   
-   function handleStateChange(params) {
-    
-   }
-
+   
   return (
     <div className=" relative flex items-center justify-end h-full">
       <div className="absolute z-10  pr-8">

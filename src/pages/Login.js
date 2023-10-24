@@ -3,9 +3,10 @@ import { useState, useContext } from 'react'
 import { Link, useNavigate, NavLink } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
+
 export default function Login() {
 
-  const { setToken, setCurrentUser } = useContext(UserContext)
+  const { cookies, setToken, setCurrentUser } = useContext(UserContext)
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,8 +37,8 @@ export default function Login() {
         if (response.ok) {
           response.json().then((data) => {
             console.log(data.user)
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', data.user);
+            cookies.set('token', data.token, { path: '/' });
+            cookies.set('user', data.user, { path: '/' });
             navigate("/")
             setToken(data.token)
             setCurrentUser(data.user)

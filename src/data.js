@@ -1,10 +1,10 @@
 // rooms images
-import Room1Img from './assets/img/rooms/1.png';
-import Room1ImgLg from './assets/img/rooms/1-lg.png';
-import Room2Img from './assets/img/rooms/2.png';
-import Room2ImgLg from './assets/img/rooms/2-lg.png';
-import Room3Img from './assets/img/rooms/3.png';
-import Room3ImgLg from './assets/img/rooms/3-lg.png';
+import Room1Img from './assets/img/rooms/1.jpg';
+import Room1ImgLg from './assets/img/rooms/1.jpg';
+import Room2Img from './assets/img/rooms/2.jpg';
+import Room2ImgLg from './assets/img/rooms/2.jpg';
+import Room3Img from './assets/img/rooms/1.jpg';
+import Room3ImgLg from './assets/img/rooms/1.jpg';
 import Room4Img from './assets/img/rooms/4.png';
 import Room4ImgLg from './assets/img/rooms/4-lg.png';
 import Room5Img from './assets/img/rooms/5.png';

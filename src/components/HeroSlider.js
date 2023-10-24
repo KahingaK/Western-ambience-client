@@ -46,7 +46,7 @@ function HeroSlider() {
         delay:3000,
         disableOnInteraction: false,
      }}
-     className = "heroSlider h-[600px] lg:h-[860px]">
+     className = "heroSlider h-[600px] lg:h-[660px]">
         {Slides.map((slide, index) => {
            return (
             <SwiperSlide key={index}>

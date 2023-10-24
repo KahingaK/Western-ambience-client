@@ -1,7 +1,10 @@
 import React,  { useContext, createContext, useEffect, useState, useMemo}  from 'react'
+import  Cookie  from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 //data
 
+// Create a new instance of the Cookies class
+const cookies = new Cookie();
 
 //create context
 export const UserContext = createContext()
@@ -9,19 +12,23 @@ export const UserContext = createContext()
 
 function UserProvider({children}) {
     // const navigate = useNavigate();
-    const [token, setToken] = useState(localStorage.getItem('token') || null);
-    const [currentUser, setCurrentUser] = useState(localStorage.getItem('user') || null)
+    const [token, setToken] = useState(cookies.get('token') || null);
+    const [currentUser, setCurrentUser] = useState(cookies.get('user') || null)
 
     console.log(token);
 
     const logout = () => {
-      localStorage.removeItem('token');
-      setToken(null);
+
+      cookies.remove('token');
+      cookies.remove('user');
+  
       // navigate("/login")
+      setToken(null);
+      setCurrentUser(null);
     
     };
 
-    const value = useMemo(() => ({ token, setToken, logout, setCurrentUser, currentUser }), [token]);
+    const value = useMemo(() => ({ token, setToken, logout, setCurrentUser, currentUser, cookies }), [token]);
 
 
   return (

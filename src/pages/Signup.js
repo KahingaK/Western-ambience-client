@@ -1,12 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState , useContext} from 'react'
 import { useNavigate, Link, NavLink } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
 
-function Signup({setToken}) {
+function Signup() {
 
   const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { cookies, setToken, setCurrentUser } = useContext(UserContext)
   
     const [confirmPassword, setConfirmPassword] = useState('');
   
@@ -35,9 +37,12 @@ function Signup({setToken}) {
             if (response.ok) {
               response.json().then((data) => {
                 console.log(data)
-                setToken(data)
-              
-                navigate("/dashboard");
+                cookies.set('token', data.token, { path: '/' });
+                cookies.set('user', data.user, { path: '/' });
+                navigate("/")
+                setToken(data.token)
+                setCurrentUser(data.user)
+                navigate("/");
               });
             } else {
               response.json().then((err) => setError(err.errors));

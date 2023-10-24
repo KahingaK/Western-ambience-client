@@ -6,7 +6,7 @@ import {Link} from "react-router-dom"
 import {BsArrowsFullscreen , BsPeople} from "react-icons/bs"
 
 function Room({room}) {
-    const {id, name, image, size, maxPerson, description, price} = room
+    const {id, name, image, size,type, maxPerson, description, price} = room
   return (
     <>
          <div className='bg-white shadow-2xl min-h-[500px] group'> 
@@ -22,8 +22,8 @@ function Room({room}) {
                 </div>
                 <div>
                     <div className='flax-gap-x-1'>
-                        <div>Size</div>
-                        <div>{size}m2</div>
+                        <div>Type</div>
+                        <div>{type}</div>
                     </div>
                 </div>
                 <div className='flex items-center gap-x-2'>
