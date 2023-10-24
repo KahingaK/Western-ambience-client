@@ -1,67 +1,129 @@
-import React , {useState, useContext} from 'react'
-import CheckIn from './CheckIn'
-import CheckOut from './CheckOut'
-import GuestsDropdown from './GuestsDropdown'
-import ContactPopUp from './ContactPopUp'
-import { RoomContext } from '../context/RoomContext'
-import { UserContext} from '../context/UserContext'
+import React, { useState, useRef, useContext } from "react";
+import CheckIn from "./CheckIn";
+import CheckOut from "./CheckOut";
+import GuestsDropdown from "./GuestsDropdown";
+import ContactPopUp from "./ContactPopUp";
+import { toast } from "react-toastify";
+import emailjs from "@emailjs/browser";
+import { RoomContext } from "../context/RoomContext";
 
 function BookForm() {
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const { setStart, setEnd, setGuests } = useContext(RoomContext);
+  
 
-    const [isPopupOpen, setPopupOpen] = useState(false);
-    const {guests, setGuests, startDate, setStartDate, endDate, setEndDate} = useContext(RoomContext)
-    const {token, currentUser} = useContext(UserContext)
- 
-   
+  //change state to show Popup component onclick check btn
 
-        const handleCheckNow = () => {            
-            setPopupOpen(true);
-        };
+  const handleCheckNow = () => {
+    setPopupOpen(true);
+  };
 
-        const handleClosePopup = () => {
-            setPopupOpen(false);
-        };
+  //Hide Popup contact component
+  const handleClosePopup = () => {
+    setPopupOpen(false);
+  };
 
-        const handleContactSubmit = (email, message) => {
-           
-                       
-            // Handle the submitted email, e.g., send it to a server
-            console.log('Submitted email:', email + message 
-            );
+  //function to handle submitted data
+  const handleContactSubmit = (email, message) => {
+    // Handle the submitted email, e.g., send it to a server
+    console.log("Submitted email:", email + message);
+    setStart(false)
+    setEnd(false)
+    setGuests("Guests")
 
-            // Close the popup
-            setPopupOpen(false);
-        };
-        
-        
+    // Close the popup
+    setPopupOpen(false);
+  };
+
+  const form = useRef();
+
+  const sendEmail = (email, message) => {
+    // Get the form data
+    const formData = new FormData(form.current);
+  
+
+    // Check if any field is empty
+    if (!message || !email) {
+      // Handle the error, e.g., show an error message to the user
+      console.error("Please fill in all fields.");
+      toast.error("Please fill in all fields.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return; // Exit the function without sending the email
+    }
+
+    // If all fields are filled, send the email
+    emailjs
+      .sendForm(
+        "service_i6tcq5n",
+        "template_wddz79n",
+        form.current,
+        "Do1vIelv9gzgnw0qw"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log(formData);
+          sendEmail(email, message);
     
+          toast.success("Message sent!", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
 
   return (
     <div>
-        <form className='h-[300px] w-full lg:h-[70px] '>
-        <div className='flex flex-col w-full h-full lg:flex-row'>
-            <div className='flex-1 border-r'>
-                <CheckIn/>
-            </div>
-        
-            <div className='flex-1 border-r'>
-                <CheckOut />
-            </div>
-      
-            <div className='flex-1 border-r'>
-                <GuestsDropdown/>
-            </div>        
-            <button className = " btn-primary btn:hover-accent flex-1 border-r" type = "button" onClick={handleCheckNow}>
-                Check Now
-            </button>
+      <form  className="h-[300px] w-full lg:h-[70px] ">
+        <div className="flex flex-col w-full h-full lg:flex-row">
+          <div className="flex-1 border-r">
+            <CheckIn />
+          </div>
+
+          <div className="flex-1 border-r">
+            <CheckOut />
+          </div>
+
+          <div className="flex-1 border-r">
+            <GuestsDropdown />
+          </div>
+          <button
+            className=" btn-primary btn:hover-accent flex-1 border-r"
+            type="button"
+            onClick={handleCheckNow}
+          >
+            Check Now
+          </button>
         </div>
-    </form>
-        {isPopupOpen && (<ContactPopUp onClose={handleClosePopup} onContactSubmit={handleContactSubmit} />
-        )}
+      </form>
+      {isPopupOpen && (
+        <ContactPopUp
+          onClose={handleClosePopup}
+          onContactSubmit={handleContactSubmit}
+          sendEmail={sendEmail}
+          form = {form}
+        />
+      )}
     </div>
-    
-    
-  )
+  );
 }
 
-export default BookForm
+export default BookForm;

@@ -1,4 +1,4 @@
-import React , {useState, useContext, useMemo }from 'react'
+import React from 'react'
 import './App.css';
 //components
 import Home from './pages/Home';
@@ -7,12 +7,11 @@ import Footer from './components/Footer';
 //pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import RoomList from './components/RoomList';
 import RoomDetails from './pages/RoomDetails';
 //react router
 import {BrowserRouter, Routes, Route} from "react-router-dom"
-import { FaSteamSquare } from 'react-icons/fa';
-import { UserContext } from './context/UserContext';
+// import { FaSteamSquare } from 'react-icons/fa';
+// import { UserContext } from './context/UserContext';
 
 
 

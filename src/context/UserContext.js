@@ -1,6 +1,6 @@
-import React,  { useContext, createContext, useEffect, useState, useMemo}  from 'react'
+import React,  { createContext,  useState, useMemo}  from 'react'
 import  Cookie  from 'universal-cookie';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 //data
 
 // Create a new instance of the Cookies class
@@ -28,7 +28,7 @@ function UserProvider({children}) {
     
     };
 
-    const value = useMemo(() => ({ token, setToken, logout, setCurrentUser, currentUser, cookies }), [token]);
+    const value = useMemo(() => ({ token, setToken, logout, setCurrentUser, currentUser, cookies }));
 
 
   return (

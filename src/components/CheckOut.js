@@ -1,4 +1,4 @@
-import React, { useState , useContext} from "react";
+import React, {useContext} from "react";
 //datepicker
 import DatePicker from "react-datepicker";
 
@@ -9,9 +9,9 @@ import { RoomContext } from "../context/RoomContext";
 import "../datepicker.css";
 
 function CheckOut() {
- 
+
+  //import context & state
   const { start , end, setEnd} = useContext(RoomContext)
-  const [ endDate,  setEndDate] = useState(false);
   
 
   return (
@@ -28,8 +28,8 @@ function CheckOut() {
         dateFormat= "dd/MM/yyyy"
         minDate={start}
         placeholderText="Check Out"
-        onChange={(date) => {setEndDate(date)
-        setEnd(date)}}
+        onChange={(date) => 
+        setEnd(date)}
       />
       
       
