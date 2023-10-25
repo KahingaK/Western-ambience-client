@@ -13,8 +13,9 @@ function Home() {
             </div>
         
         </div>
-     
+      
       <RoomList />
+      
     </>
   );
 }

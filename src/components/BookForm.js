@@ -38,9 +38,7 @@ function BookForm() {
   const form = useRef();
 
   const sendEmail = (email, message) => {
-    // Get the form data
-    const formData = new FormData(form.current);
-  
+     
 
     // Check if any field is empty
     if (!message || !email) {
@@ -70,10 +68,7 @@ function BookForm() {
       .then(
         (result) => {
           console.log(result.text);
-          console.log(formData);
-          sendEmail(email, message);
-    
-          toast.success("Message sent!", {
+            toast.success("Message sent!", {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: true,

@@ -4,6 +4,8 @@ import './App.css';
 import Home from './pages/Home';
 import Header from "./components/Header"
 import Footer from './components/Footer';
+import RoomList from './components/RoomList';
+import Restaurant from './components/Restaurant';
 //pages
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -35,6 +37,9 @@ function App() {
             <Route path='/' element = {<Home/>}></Route>
             <Route path="/login" element={<Login />}>login</Route>
             <Route path="/signup" element={<Signup />}>signup</Route>
+            <Route path="/rooms" element={<RoomList />}>rooms</Route>
+            <Route path="/restaurant" element={<Restaurant />}>restaurant</Route>
+
             <Route path = "/room/:id" element = {<RoomDetails/>}/>
         </Routes>
       <Footer/>

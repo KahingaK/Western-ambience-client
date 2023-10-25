@@ -25,11 +25,11 @@ function Room({ room }) {
                 <BsArrowsFullscreen className="text-[15px]" />
               </div>
             </div>
-            <div>
-              <div className="flax-gap-x-1">
-                <div>Type</div>
+            <div className=" flex justify-center items-center">
+              
+                
                 <div>{type}</div>
-              </div>
+              
             </div>
             <div className="flex items-center gap-x-2">
               <div className="text-accent">

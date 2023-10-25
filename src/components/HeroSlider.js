@@ -48,11 +48,12 @@ function HeroSlider() {
             <div className="h-full relative flex justify-center items-center">
               <div className=" z-20 text-white text-center">
                 <div className="uppercase font-tertiary tracking-[6px] mb-5">
-                  Relax and Enjoy
+                  Ambience and Bliss
                 </div>
                 <h1 className="text-[32px] font-primary uppercase tracking-[2px] max-w-[920px] lg:text-[68px] leading-tight mb-6 ">
                   {slide.title}
                 </h1>
+                
                 <button className="btn btn-lg btn-primary mx-auto">
                   {slide.btnText}
                 </button>

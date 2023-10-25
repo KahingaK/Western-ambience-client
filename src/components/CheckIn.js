@@ -16,7 +16,7 @@ function CheckIn() {
 
   return (
     <div className=" relative flex items-center justify-end h-full">
-      <div className="absolute z-10  pr-8">
+      <div className="absolute  pr-8">
         <div>
           <BsCalendar className="text-base" />
         </div>
