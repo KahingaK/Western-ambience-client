@@ -49,7 +49,7 @@ function RoomDetails() {
   return (
     <section className="">
       <div className="bg-room bg-cover bg-center h-[560px] relative flex justify-center items-center">
-        <div className="absolite w-full h-full bg-black/70"></div>
+        <div className=" w-full h-full bg-black/70"></div>
         <h1 className="text-6xl text-white z-20 font-primary text-center">
           {room.name} Details
         </h1>
