@@ -18,8 +18,8 @@ function ContactPopUp({ onClose, onContactSubmit, sendEmail, form }) {
   };
 
   return (
-    <div className="popup">
-      <div className="popup-content">
+    <div className="popup ">
+      <div className="popup-content w-4/6">
         <div className="flex flex-col items-center space-y-6">
           <span className="close text-3xl pr-4" onClick={onClose}>
             &times;
@@ -29,8 +29,7 @@ function ContactPopUp({ onClose, onContactSubmit, sendEmail, form }) {
             Contact Us
           </h1>
           <p className=" text-gray-500 font-tertiary text-center w-5/6">
-            Please provide us with your email address or phone number so that we
-            constantly update you, do not miss out on important notifications.
+            Input your email address or phone number to receive updates for you, do not miss out on important notifications.
           </p>
           <form ref={form} className=" flex flex-col justify-center items-center w-[80%] space-y-4">
             <input

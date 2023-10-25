@@ -54,7 +54,7 @@ function RoomDetails() {
           {room.name} Details
         </h1>
       </div>
-      <div className="containe mx-auto">
+      <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row h-full py-24 px-12">
           <div className="w-full h-full lg:w-[60%] px-6">
             <h2 className="h2">{room.name}</h2>
