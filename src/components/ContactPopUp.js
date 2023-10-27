@@ -19,7 +19,7 @@ function ContactPopUp({ onClose, onContactSubmit, sendEmail, form }) {
 
   return (
     <div className="popup ">
-      <div className="popup-content w-4.5/6">
+      <div className="popup-content w-4/6">
         <div className="flex flex-col items-center space-y-6">
           <span className="close text-3xl pr-4" onClick={onClose}>
             &times;

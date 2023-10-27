@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { toast } from "react-toastify";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -35,6 +36,16 @@ function Signup() {
           if (response.ok) {
             response.json().then((data) => {
               console.log(data);
+              toast.success(data.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });              
               cookies.set("token", data.token, { path: "/" });
               cookies.set("user", data.user, { path: "/" });
               navigate("/");
@@ -43,7 +54,19 @@ function Signup() {
               navigate("/");
             });
           } else {
-            response.json().then((err) => setError(err.errors));
+            response.json().then((err) => {
+              setError(err.error)
+              toast.error(err.error, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
+            });
           }
         })
         .catch(() => {

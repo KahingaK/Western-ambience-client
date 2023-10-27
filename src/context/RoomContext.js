@@ -23,23 +23,7 @@ function RoomProvider({children}) {
       setGuests("Guests")
      }
 
-  //   useEffect(() => {
-  //     //Fetch Rooms
-  //     fetch ("http://localhost:3000/rooms", {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       // setRooms(data);
-  //   })
-  //     .catch((error) => {
-  //       console.log("Error fetching articles: ", error);
-  //     });
-  // }, []);
+  
 
   const value = useMemo(() => ({ rooms, guests, setGuests, start, setStart , end, setEnd, handleSubmitEvent }));
     

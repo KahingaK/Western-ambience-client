@@ -35,7 +35,7 @@ function Header() {
           <a href="/restaurant" className="transition hover:text-accent">
             Restaurant
           </a>
-          <a href="*" className="transition hover:text-accent">
+          <a href="/services" className="transition hover:text-accent">
             Services
           </a>
           {isLoggedIn ? (

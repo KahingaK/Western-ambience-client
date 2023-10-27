@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import RoomProvider from './context/RoomContext';
 import UserProvider from './context/UserContext';
+import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,6 +14,7 @@ root.render(
   <UserProvider>
     <RoomProvider>
       <App />
+      <ToastContainer/>
     </RoomProvider>
     
   </UserProvider>
