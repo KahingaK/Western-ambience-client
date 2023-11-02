@@ -13,6 +13,7 @@ import RoomDetails from './pages/RoomDetails';
 //react router
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import Services from './components/Services';
+import AdminDashboard from './pages/AdminDashboard';
 // import { FaSteamSquare } from 'react-icons/fa';
 // import { UserContext } from './context/UserContext';
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/rooms" element={<RoomList />}>rooms</Route>
             <Route path="/restaurant" element={<Restaurant />}>restaurant</Route>
             <Route path="/services" element={<Services />}>restaurant</Route>
+            <Route path="/dashboard" element={<AdminDashboard/>}>restaurant</Route>
 
             <Route path = "/room/:id" element = {<RoomDetails/>}/>
         </Routes>

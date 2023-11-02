@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import TableThree from './TableThree';
+import TableTwo from './TableTwo';
 
 function Services() {
     
@@ -8,7 +9,7 @@ function Services() {
         return (
             <section className='py-32'>
                 <div className='container mx-auto'>
-                <TableThree/>
+                
                 </div>
             </section>
           
