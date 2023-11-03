@@ -43,7 +43,7 @@ export const roomData = [
     name: 'Deluxe Room',
     type: "Suite",
     description:
-      'A convenient option for traveling families or groups, the Deluxe Room is one of our largest rooms. We hope you are comfortable during your stay at Western Ambience Hotel.',
+      'A convenient option for traveling families or groups, the Deluxe Room provides a comfortable experience during your stay at Western Ambience Hotel.',
 
     facilities: [
       { name: 'Wifi', icon: <FaWifi /> },

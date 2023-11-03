@@ -301,14 +301,14 @@ const TableTwo = () => {
      
   }
     return (
-      <div className=" col-span-12 xl:col-span-8 rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-    <div className="flex flex-col gap-y-4">
+      <div className=" col-span-12 h-[500px] overflow-y-auto  xl:col-span-8 rounded-sm bg-white px-5 pt-6 pb-2.5 shadow-default  sm:px-7.5 xl:pb-1">
+    <div className="flex flex-col gap-y-4 ">
     <div >
       <button className="btn btn-primary py-4 text-white" onClick="">
                   New <MdAddBox/>
                   </button>  
       </div>
-      <div className="max-w-full overflow-x-auto">
+      <div className="max-w-full overflow-x-auto ">
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-accent text-left dark:bg-meta-4">
@@ -336,7 +336,7 @@ const TableTwo = () => {
                 <h5 className="font-medium text-black dark:text-white">
                    {booking.user.username}
                 </h5>
-                <p className="text-sm">{matchingRoom.room_type}</p>
+                <p className="text-sm">{matchingRoom ? matchingRoom.room_type : "Loading..."}</p>
               </td>
               <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                 <p className="text-black dark:text-white">{matchingRoom.room_number}</p>

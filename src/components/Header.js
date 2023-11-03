@@ -39,12 +39,13 @@ function Header() {
             Services
           </a>
           {isLoggedIn ? (
-            <div
+            <Link
+              to = "/login"
               onClick={logout}
               className="transition hover:text-accent cursor-pointer"
             >
               Logout
-            </div>
+            </Link>
           ) : (
             <Link
               to="/login"

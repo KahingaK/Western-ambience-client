@@ -299,7 +299,7 @@ const TableThree = () => {
      
   }
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-8">
+    <div className=" col-span-12  rounded-sm  h-[500px] overflow-y-auto  bg-white px-5 pt-6 pb-2.5 shadow-default  sm:px-7.5 xl:col-span-8">
     <div className="flex flex-col gap-y-4">
     <div className="">
       <button className="btn btn-primary py-4 text-white" onClick={handleAddPopup}>

@@ -4,7 +4,7 @@ import UserOne from '../assets/img/user.png';
 
 const ChatCard = () => {
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-4 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+    <div className="col-span-12 h-[500px] overflow-y-auto  rounded-sm border border-stroke bg-white px-4 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
       <h4 className="mb-6 px-7.5 text-xl font-semibold text-black dark:text-white">
         Chats
       </h4>
@@ -28,12 +28,10 @@ const ChatCard = () => {
                 <span className="text-sm text-black dark:text-white">
                   Hello, how are you?
                 </span>
-                <span className="text-xs"> . 12 min</span>
+               
               </p>
             </div>
-            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary">
-              <span className="text-sm font-medium text-white">3</span>
-            </div>
+           
           </div>
         </Link>
         <Link
@@ -95,9 +93,7 @@ const ChatCard = () => {
                 <span className="text-xs"> . Sun</span>
               </p>
             </div>
-            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary">
-              <span className="text-sm font-medium text-white">2</span>
-            </div>
+            
           </div>
         </Link>
         <Link

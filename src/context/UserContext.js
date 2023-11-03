@@ -15,7 +15,7 @@ function UserProvider({children}) {
     const [token, setToken] = useState(cookies.get('token') || null);
     const [currentUser, setCurrentUser] = useState(cookies.get('user') || null)
 
-    console.log(token);
+    console.log(currentUser);
 
     const logout = () => {
 

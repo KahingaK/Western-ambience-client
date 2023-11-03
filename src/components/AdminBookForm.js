@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Menu } from "@headlessui/react";
+import { BsChevronDown } from "react-icons/bs";
 import CheckIn from "./CheckIn";
 import CheckOut from "./CheckOut";
 import GuestsDropdown from "./GuestsDropdown";
@@ -12,8 +14,9 @@ function AdminBookForm() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [rooms, setRooms] = useState([])
   const [roomId, setRoomId] = useState("")
+  const [room, setRoom] = useState("room")
   const { start, end, guests } = useContext(RoomContext);
-  const {token } = useContext(UserContext)
+  const {token, currentUser } = useContext(UserContext)
 
 
   useEffect(() => {
@@ -51,6 +54,7 @@ function AdminBookForm() {
         end_date: end,
         notes: guests,
         room_id: roomId,
+        user_id: currentUser.id
       }),
     })
       .then((response) => {
@@ -67,7 +71,9 @@ function AdminBookForm() {
 
   return (
     <div>
-      <form  className="h-[300px] w-full lg:h-[70px] ">
+    
+      <form  className="h-[300px] w-full lg:h-[70px] "
+      onSubmit={handleSubmitBooking}>
         <div className="flex flex-col w-full h-full lg:flex-row">
           <div className="flex-1 border-r">
             <CheckIn />
@@ -81,19 +87,39 @@ function AdminBookForm() {
             <GuestsDropdown />
           </div>
           <div className="flex-1 border-r">
-          <select onChange = {(e)=> setRoomId(e.target.value)}>
-          {
-            rooms.map((room)=><option key = {room.id} value = {room.id}> {room.room_number} </option>)
-   
-          }
-
-   </select>
+          <Menu as="div" className="w-full h-full bg-white  relative">
+      <Menu.Button className="w-full h-full flex items-center justify-between px-8">
+        {room}
+        <BsChevronDown className="text-base text-accent-hover" />
+      </Menu.Button>
+      <Menu.Items
+        as="ul"
+        className="bg-white absolute w-full flex flex-col z-40"
+      >
+        {rooms.map((room , index) => {
+          return (
+            <Menu.Item
+              as="li"
+              key={index}
+              className="border-b last:border-b-0 h-12 hover:bg-accent hover:text-white w-full flex justify-center items-center cursor-pointer"
+              onClick={() => {
+                setRoomId(index);
+                setRoom(room.room_number);
+              }}
+            >
+              {room.room_number}
+            </Menu.Item>
+          );
+        })}
+      </Menu.Items>
+    </Menu>
           </div>
           <button
-            className=" btn-primary btn:hover-accent flex-1 border-r"
-            type="button"
+            className=" btn-primary font-secondary btn:hover-accent flex-1 border-r"
+            type="submit"
+
             >
-            Check Now
+            BOOK NOW
           </button>
         </div>
       </form>
