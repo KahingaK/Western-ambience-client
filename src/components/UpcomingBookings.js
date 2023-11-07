@@ -25,12 +25,12 @@ function UpcomingBookings() {
           .catch((error) => {
             console.log("Error fetching Bookingss: ", error);
           });
-      }, );
+      }, []);
 
 
   return (
     <div className="max-w-full overflow-x-auto  ">
-    <h2 className='uppercase  font-medium'>Upcoming Bookings</h2>
+    <h2 className='uppercase  text-xl font-medium'>Upcoming Bookings</h2>
     <table className="w-full table-auto ">
     <thead>
     
@@ -41,9 +41,7 @@ function UpcomingBookings() {
         <th className="min-w-[150px] py-4 px-4 font-secondary text-accent">
           from
         </th>
-        <th className="min-w-[120px] py-4 px-4 font-secondary text-accent">
-          to
-        </th>
+        
         <th className="min-w-[120px] py-4 px-4 font-secondary text-accent">
           message
         </th>
@@ -65,10 +63,7 @@ function UpcomingBookings() {
         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
           <p className="text-black dark:text-white">{booking.start_date}</p>
         </td>
-        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-          <p className="text-black dark:text-white">{booking.start_date}</p>
-        </td>
-       
+          
         
         
       </tr>

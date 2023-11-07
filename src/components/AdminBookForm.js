@@ -4,20 +4,17 @@ import { BsChevronDown } from "react-icons/bs";
 import CheckIn from "./CheckIn";
 import CheckOut from "./CheckOut";
 import GuestsDropdown from "./GuestsDropdown";
-import ContactPopUp from "./ContactPopUp";
 import { toast } from "react-toastify";
-import emailjs from "@emailjs/browser";
 import { RoomContext } from "../context/RoomContext";
 import { UserContext } from "../context/UserContext";
 
 function AdminBookForm() {
-  const [isPopupOpen, setPopupOpen] = useState(false);
-  const [rooms, setRooms] = useState([])
-  const [roomId, setRoomId] = useState("")
-  const [room, setRoom] = useState("room")
-  const { start, end, guests } = useContext(RoomContext);
-  const {token, currentUser } = useContext(UserContext)
-
+  
+  const [rooms, setRooms] = useState([]);
+  const [roomId, setRoomId] = useState("");
+  const [room, setRoom] = useState("Room");
+  const { start, end, guests, refresh } = useContext(RoomContext);
+  const { token, currentUser } = useContext(UserContext);
 
   useEffect(() => {
     //Fetch Rooms
@@ -38,9 +35,7 @@ function AdminBookForm() {
       });
   }, []);
 
-  
-
-   function handleSubmitBooking(event) {
+  function handleSubmitBooking(event) {
     event.preventDefault();
 
     fetch("http://localhost:3000/bookings", {
@@ -54,26 +49,61 @@ function AdminBookForm() {
         end_date: end,
         notes: guests,
         room_id: roomId,
-        user_id: currentUser.id
+        user_id: currentUser.id,
       }),
     })
       .then((response) => {
         console.log(response);
+        if (response.ok) {
+         
+          toast.success(response.body, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        } else {
+          
+          console.log(response.statusText);
+          toast.error(response.statusText, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+        refresh();
+        setRoom("Room");
+
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }
 
-
-  
-
-
   return (
     <div>
-    
-      <form  className="h-[300px] w-full lg:h-[70px] "
-      onSubmit={handleSubmitBooking}>
+      <form
+        className="h-[300px] w-full lg:h-[70px] "
+        onSubmit={handleSubmitBooking}
+      >
         <div className="flex flex-col w-full h-full lg:flex-row">
           <div className="flex-1 border-r">
             <CheckIn />
@@ -87,43 +117,42 @@ function AdminBookForm() {
             <GuestsDropdown />
           </div>
           <div className="flex-1 border-r">
-          <Menu as="div" className="w-full h-full bg-white  relative">
-      <Menu.Button className="w-full h-full flex items-center justify-between px-8">
-        {room}
-        <BsChevronDown className="text-base text-accent-hover" />
-      </Menu.Button>
-      <Menu.Items
-        as="ul"
-        className="bg-white absolute w-full flex flex-col z-40"
-      >
-        {rooms.map((room , index) => {
-          return (
-            <Menu.Item
-              as="li"
-              key={index}
-              className="border-b last:border-b-0 h-12 hover:bg-accent hover:text-white w-full flex justify-center items-center cursor-pointer"
-              onClick={() => {
-                setRoomId(index);
-                setRoom(room.room_number);
-              }}
-            >
-              {room.room_number}
-            </Menu.Item>
-          );
-        })}
-      </Menu.Items>
-    </Menu>
+            <Menu as="div" className="w-full h-full bg-white  relative">
+              <Menu.Button className="w-full h-full flex items-center justify-between px-8">
+                {room}
+                <BsChevronDown className="text-base text-accent-hover" />
+              </Menu.Button>
+              <Menu.Items
+                as="ul"
+                className="bg-white absolute w-full flex flex-col z-40"
+              >
+                {rooms.map((room, index) => {
+                  return (
+                    <Menu.Item
+                      as="li"
+                      key={index}
+                      className="border-b last:border-b-0 h-12 hover:bg-accent hover:text-white w-full flex justify-center items-center cursor-pointer"
+                      onClick={() => {
+                        setRoomId(index);
+                        setRoom(room.room_number);
+                      }}
+                    >
+                      {room.room_number}
+                    </Menu.Item>
+                  );
+                })}
+              </Menu.Items>
+            </Menu>
           </div>
           <button
             className=" btn-primary font-secondary btn:hover-accent flex-1 border-r"
             type="submit"
-
-            >
+          >
             BOOK NOW
           </button>
         </div>
       </form>
-     </div>
+    </div>
   );
 }
 

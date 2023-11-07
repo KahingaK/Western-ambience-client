@@ -5,6 +5,8 @@ import {roomData} from "../data"
 //create context
 export const RoomContext = createContext()
 
+
+
 function RoomProvider({children}) {
     const [rooms, setRooms] = useState(roomData)
     const [guests, setGuests] = useState("Guests")
@@ -14,6 +16,13 @@ function RoomProvider({children}) {
     const [end, setEnd] = useState(false);
     console.log(end);
      
+    function refresh() {
+      setStart(false)
+      setEnd(false)
+      setGuests("Guests")
+      
+    }
+
     function handleSubmitEvent(event) {
       event.preventDefault();
 
@@ -25,7 +34,7 @@ function RoomProvider({children}) {
 
   
 
-  const value = useMemo(() => ({ rooms, guests, setGuests, start, setStart , end, setEnd, handleSubmitEvent }));
+  const value = useMemo(() => ({ rooms, guests, setGuests, start, setStart , end, setEnd, handleSubmitEvent , refresh}));
     
 
   return (
