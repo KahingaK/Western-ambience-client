@@ -4,6 +4,7 @@ import CheckIn from "../components/CheckIn";
 import CheckOut from "../components/CheckOut";
 import GuestsDropdown from "../components/GuestsDropdown";
 import { UserContext } from "../context/UserContext";
+import { toast } from "react-toastify";
 
 //icons
 import { FaCheck } from "react-icons/fa";
@@ -37,12 +38,53 @@ function RoomDetails() {
         room_type: room.type,
       }),
     })
-      .then((response) => {
-        handleSubmitEvent(event);
+      .then((response) => { response.json()
+        .then(data =>{
+          handleSubmitEvent(event);
+        if (response.ok) {
+          
+         
+          toast.success(data, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        } else {
+          
+          console.log(data);
+          toast.error(data.error, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
         console.log(response);
       })
+        })
+        
+        
       .catch((error) => {
         console.log(error);
+        toast.error(error.error, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
   }
 

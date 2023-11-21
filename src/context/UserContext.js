@@ -1,5 +1,6 @@
 import React,  { createContext,  useState, useMemo}  from 'react'
 import  Cookie  from 'universal-cookie';
+import { toast } from 'react-toastify';
 // import { useNavigate } from 'react-router-dom';
 //data
 
@@ -25,6 +26,16 @@ function UserProvider({children}) {
       // navigate("/login")
       setToken(null);
       setCurrentUser(null);
+      toast.success("Logout Success", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     
     };
 

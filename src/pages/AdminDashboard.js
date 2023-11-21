@@ -28,7 +28,9 @@ function AdminDashboard() {
           
           
           <div className="flex flex-col">
-            <div>hello</div>
+            <div>
+            <h2 className='uppercase  text-xl font-medium'>Send Mail </h2>
+            </div>
             <div className="rounded-sm  shadow-default ">
                   <div className="border-b  py-4 px-6.5 ">
                     <div className="flex flex-col  space-y-4 p-6.5">                  
@@ -62,8 +64,9 @@ function AdminDashboard() {
           
         </div>
         <div className="pt-4"></div>
-          <div className="container mx-auto relative ">
+          <div className="container mx-auto relative lg:pb-16 ">
             <div className=" mt-4 p-4 lg:shadow-xl lg:absolute lg:left-0 lg:right-0 lg:p-0 lg:z-1 lg:-top-12 ">
+            
               <AdminBookForm />
             </div>
           </div>
@@ -72,10 +75,10 @@ function AdminDashboard() {
           <div className="cols-span-4 ">
             {showTableThree ? (
               <h2 className="font-primary text-[45px]">
-                Rooms
+                Bookings
               </h2>
             ) : (
-              <h2 className="font-primary text-[45px]">Bookings</h2>
+              <h2 className="font-primary text-[45px]">Rooms</h2>
             )}
           </div>
 
@@ -104,7 +107,7 @@ function AdminDashboard() {
           </div>
           </div>
           <div className=" grid-container-2 mt-4 grid grid-cols-12  gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-            {showTableThree ?  <TableThree /> : <TableTwo />}
+            {showTableThree ?  <TableTwo /> : <TableThree />}
             <ChatCard />
           </div>
         </div>

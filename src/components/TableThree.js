@@ -79,43 +79,45 @@ const TableThree = () => {
         
        
       },
-      body: JSON.stringify( data),
+      body: JSON.stringify(data),
     })
-      .then((response) => {
+      .then((response) => { response.json()
+      .then((data) => {
+        
         if (response.ok) {
-           // handleAddRoom(response)
-        setPopupOpen(false);
-        toast.success("Room created!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-          
-        } else {
-          console.log(response.statusText);
-          toast.error(response.statusText, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-          
-        }
+          // handleAddRoom(response)
+       setPopupOpen(false);
+       toast.success(data.message, {
+         position: "top-right",
+         autoClose: 3000,
+         hideProgressBar: true,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "colored",
+       });
+         
+       } else {
+         console.log(data);
+         toast.error(data[0], {
+           position: "top-right",
+           autoClose: 3000,
+           hideProgressBar: true,
+           closeOnClick: true,
+           pauseOnHover: true,
+           draggable: true,
+           progress: undefined,
+           theme: "colored",
+         });
+         
+       }
+      
        
 
-        
-      })
+      })})
       .catch((error) => {
-        toast.error(error, {
+        toast.error(error , {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -142,12 +144,13 @@ const TableThree = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => {
-        // handleAddRoom(response)
+    .then((response) => { response.json()
+      .then((data) => {
+        
         if (response.ok) {
           // handleAddRoom(response)
        setPopupOpen(false);
-       toast.success("Room updated!", {
+       toast.success(data.message, {
          position: "top-right",
          autoClose: 3000,
          hideProgressBar: true,
@@ -159,7 +162,7 @@ const TableThree = () => {
        });
          
        } else {
-         console.log(response.statusText);
+         console.log(data);
          toast.error(response.statusText, {
            position: "top-right",
            autoClose: 3000,
@@ -172,9 +175,10 @@ const TableThree = () => {
          });
          
        }
+      
+       
 
-        console.log(response);
-      })
+      })})
       .catch((error) => {
         toast.error(error, {
           position: "top-right",
@@ -239,6 +243,17 @@ const TableThree = () => {
 }
 
   function handleRoomStatus(id) {
+
+     // Find the index of the booking with the given id
+  const index = rooms.findIndex((room) => room.id === id);
+
+  // Toggle the approved value
+  const updatedRooms = [...rooms];
+  updatedRooms[index].available = !updatedRooms[index].available;
+
+  // Update the state with the modified bookings array
+  setRooms(updatedRooms);
+
     fetch(`http://localhost:3000/rooms/${id}/available`, {
       method: "PATCH",
       headers: {
@@ -250,39 +265,36 @@ const TableThree = () => {
       },
       body: JSON.stringify(),
     })
-      .then((response) => {
-        // handleAddRoom(response)
-        if (response.ok) {
+    .then((response) => {
+      response.json().then((data) => {
+        if (data.message === "Room now available") {
           // handleAddRoom(response)
-       setPopupOpen(false);
-       toast.success(response, {
-         position: "top-right",
-         autoClose: 3000,
-         hideProgressBar: true,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "colored",
-       });
-         
-       } else {
-         console.log(response.statusText);
-         toast.error(response.statusText, {
-           position: "top-right",
-           autoClose: 3000,
-           hideProgressBar: true,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "colored",
-         });
-         
-       }
 
-        console.log(response);
-      })
+          toast.success(data.message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        } else {
+          console.log(data);
+          toast.error(data.message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      });
+    })
       .catch((error) => {
         toast.error(error, {
           position: "top-right",
@@ -339,8 +351,9 @@ const TableThree = () => {
                 <p className="text-black dark:text-white">{room.price}</p>
               </td>
               <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                <button className="inline-flex rounded-full bg-success bg-opacity-10 py-1 px-3 text-sm font-medium text-success
-                " onClick={() => handleRoomStatus(room.id)}>
+                <button className={`inline-flex rounded-full ${
+                          room.available ? "bg-green-500" : "bg-red-500"
+                        }  py-1 px-3 text-sm font-medium text-white`} onClick={() => handleRoomStatus(room.id)}>
                   {room.available.toString()}
                 </button>
               </td>

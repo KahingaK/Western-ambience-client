@@ -1,7 +1,9 @@
 import React from "react";
 import BookForm from "../components/BookForm";
+import FindUs from "../components/FindUs";
 import HeroSlider from "../components/HeroSlider";
 import RoomList from "../components/RoomList";
+import Socials from "../components/Socials";
 
 function Home() {
   return (
@@ -15,6 +17,9 @@ function Home() {
         </div>
       
       <RoomList />
+      <FindUs/>
+      <Socials/>
+      
       
     </>
   );

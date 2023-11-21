@@ -1,139 +1,161 @@
-import { Link } from 'react-router-dom';
-import UserOne from '../assets/img/user.png';
-
+import { Link } from "react-router-dom";
+import UserOne from "../assets/img/user.png";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import { MdDeleteOutline } from "react-icons/md";
+import { FaPen } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const ChatCard = () => {
+  const [reviews, setReviews] = useState([]);
+  const [reviewContent, setReviewContent] = useState("");
+  const { token } = useContext(UserContext);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/reviews", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setReviews(data);
+      })
+      .catch((error) => {
+        console.log("Error fetching Bookingss: ", error);
+      });
+  }, []);
+
+  //create a new review
+  function handleAddReview(newReview) {
+    setReviews([...reviews, newReview]);
+  }
+
+  function handleAddClick(e) {
+    e.preventDefault();
+    fetch("http://localhost:3000/reviews", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ content: reviewContent }),
+    })
+      .then((response) => {
+        response.json().then((data) => {
+          if (response.ok) {
+            // handleAddReview(data.review);
+            console.log(data.review);
+            setReviewContent("");
+            toast.success(data.message, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          } else {
+            console.log(response.statusText);
+            toast.error(response.statusText || "an error occured", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
+        });
+      })
+
+      .catch((error) => {
+        toast.error( "An error occurred", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        console.log(error);
+      });
+  }
+
   return (
-    <div className="col-span-12 h-[500px] overflow-y-auto  rounded-sm border border-stroke bg-white px-4 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-      <h4 className="mb-6 px-7.5 text-xl font-semibold text-black dark:text-white">
+    <div className="col-span-12 h-[500px] overflow-y-auto rounded-sm  bg-white px-4 py-6 shadow-default  xl:col-span-4">
+      <h3 className="uppercase  text-xl font-medium pb-2">Reviews</h3>
+      <div className="border mt-1 p-2 rounded-md w-full flex lg:flex-col">
+        <div className=" flex-grow ">
+          <input
+            className=" outline-none placeholder-gray-500 lg:placeholder-opacity-0 w-full max-h-48 overflow-y-auto "
+            type="text"
+            placeholder="leave a comment..."
+            value={reviewContent}
+            onChange={(e) => setReviewContent(e.target.value)}
+          />
+        </div>
+
+        <div className="flex-shrink-2 ml-2">
+          {" "}
+          {/* Add flex-shrink-0 to prevent the button from growing */}
+          <button
+            className="btn btn-primary cursor-pointer"
+            onClick={handleAddClick}
+          >
+            review
+          </button>
+        </div>
+      </div>
+
+      <h4 className="mb-6 mt-6 px-7.5 text-xl font-semibold text-black dark:text-white">
         Chats
       </h4>
 
       <div>
-        <Link
-          to="/"
-          className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4"
-        >
-          <div className="relative h-14 w-14 rounded-full">
-            <img src={UserOne} alt="User" />
-            <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-3"></span>
-          </div>
+        {reviews &&
+          reviews.map((review) => (
+            <div
+              key={review.id}
+              className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4"
+            >
+              <div className="relative h-14 w-14 rounded-full">
+                <img src={UserOne} alt="User" />
+                <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-3"></span>
+              </div>
 
-          <div className="flex flex-1 items-center justify-between">
-            <div>
-              <h5 className="font-medium text-black dark:text-white">
-                Devid Heilo
-              </h5>
-              <p>
-                <span className="text-sm text-black dark:text-white">
-                  Hello, how are you?
-                </span>
-               
-              </p>
-            </div>
-           
-          </div>
-        </Link>
-        <Link
-          to="/"
-          className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4"
-        >
-          <div className="relative h-14 w-14 rounded-full">
-            <img src={UserOne} alt="User" />
-            <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-3"></span>
-          </div>
+              <div className="flex flex-1 items-center justify-between">
+                <div>
+                  <h5 className="font-medium text-black dark:text-white">
+                    {review.user.username}
+                  </h5>
+                  <p>
+                    <span className="text-sm text-black dark:text-white">
+                      {review.content}
+                    </span>
+                  </p>
+                  <p className="text-sm pt-2">
+                    {new Date(review.created_at).toLocaleDateString("en-GB")}
+                  </p>
+                </div>
 
-          <div className="flex flex-1 items-center justify-between">
-            <div>
-              <h5 className="font-medium">Henry Fisher</h5>
-              <p>
-                <span className="text-sm">I am waiting for you</span>
-                <span className="text-xs"> . 5:54 PM</span>
-              </p>
+                {/* Delete SVG */}
+                <div className="cursor-pointer">
+                  <MdDeleteOutline />
+                </div>
+              </div>
             </div>
-          </div>
-        </Link>
-        <Link
-          to="/"
-          className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4"
-        >
-          <div className="relative h-14 w-14 rounded-full">
-            <img src={UserOne} alt="User" />
-            <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-6"></span>
-          </div>
-
-          <div className="flex flex-1 items-center justify-between">
-            <div>
-              <h5 className="font-medium">Wilium Smith</h5>
-              <p>
-                <span className="text-sm">Where are you now?</span>
-                <span className="text-xs"> . 10:12 PM</span>
-              </p>
-            </div>
-          </div>
-        </Link>
-        <Link
-          to="/"
-          className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4"
-        >
-          <div className="relative h-14 w-14 rounded-full">
-            <img src={UserOne} alt="User" />
-            <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-3"></span>
-          </div>
-
-          <div className="flex flex-1 items-center justify-between">
-            <div>
-              <h5 className="font-medium text-black dark:text-white">
-                Henry Deco
-              </h5>
-              <p>
-                <span className="text-sm text-black dark:text-white">
-                  Thank you so much!
-                </span>
-                <span className="text-xs"> . Sun</span>
-              </p>
-            </div>
-            
-          </div>
-        </Link>
-        <Link
-          to="/"
-          className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4"
-        >
-          <div className="relative h-14 w-14 rounded-full">
-            <img src={UserOne} alt="User" />
-            <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-7"></span>
-          </div>
-
-          <div className="flex flex-1 items-center justify-between">
-            <div>
-              <h5 className="font-medium">Jubin Jack</h5>
-              <p>
-                <span className="text-sm">I really love that!</span>
-                <span className="text-xs"> . Oct 23</span>
-              </p>
-            </div>
-          </div>
-        </Link>
-        <Link
-          to="/"
-          className="flex items-center gap-5 py-3 px-7.5 hover:bg-gray-3 dark:hover:bg-meta-4"
-        >
-          <div className="relative h-14 w-14 rounded-full">
-            <img src={UserOne} alt="User" />
-            <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-meta-6"></span>
-          </div>
-
-          <div className="flex flex-1 items-center justify-between">
-            <div>
-              <h5 className="font-medium">Wilium Smith</h5>
-              <p>
-                <span className="text-sm">Where are you now?</span>
-                <span className="text-xs"> . Sep 20</span>
-              </p>
-            </div>
-          </div>
-        </Link>
+          ))}
       </div>
     </div>
   );

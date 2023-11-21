@@ -51,7 +51,9 @@ function Room({ room }) {
           <p className="max-w-[300px] mx-auto mb-3 lg:mb-6">{description}</p>
         </div>
         <div>
-          <Link className="btn btn-secondary btn-sm max-w-[240px] mx-auto">
+          <Link
+            to={`/room/${id}`}
+           className="btn btn-secondary btn-sm max-w-[240px] mx-auto">
             Book now
           </Link>
         </div>
