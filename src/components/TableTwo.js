@@ -1,31 +1,30 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  MdAddBox,
-  MdBrowserUpdated,
-  MdMailOutline,
-  MdDeleteOutline,
-  MdSearch,
-} from "react-icons/md";
-import { toast } from "react-toastify";
+import React, { useEffect, useContext, useState } from "react";
+import { BsCash } from "react-icons/bs";
+import { MdMacroOff, MdMailOutline, MdPayment, MdSearch } from "react-icons/md";
 import { UserContext } from "../context/UserContext";
-import BookingUpdatePopup from "./BookingUpdatePopup";
-import UpcomingBookings from "./UpcomingBookings";
+import { ToastContainer, toast } from "react-toastify";
 import UserMail from "./UserMail";
+import AdminPayment from "./AdminPayment";
+import Loading from "./Loading";
 
 //Bookings Table
 const TableTwo = () => {
   const [bookings, setBookings] = useState([]);
-  const [isPopupOpen, setPopupOpen] = useState(false);
-  const { token } = useContext(UserContext);
-  const [rooms, setRooms] = useState([]);
   const [bookingId, setBookingId] = useState("");
-  const [actionType, setActionType] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [isMailPopupOpen, setMailPopupOpen] = useState(false); // New state for mail popup
+  const [isPaymentPopupOpen, setPaymentPopupOpen] = useState(false); //
+  const [checkoutRequestId, setCheckoutRequestId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [filteredBookings, setFilteredBookings] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [rooms, setRooms] = useState([]);
+  const [booking, setBooking] = useState([]);
+
+  const { url, token } = useContext(UserContext);
 
   useEffect(() => {
     //Fetch Bookings
-    fetch("http://localhost:3000/bookings", {
+    fetch(`${url}/active_bookings`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -35,8 +34,8 @@ const TableTwo = () => {
       .then((response) => response.json())
       .then((data) => {
         setBookings(data);
-        setFilteredBookings(data);
-        <UpcomingBookings bookings = {bookings}/>
+        console.log(bookings);
+        setFilteredBookings(data)
       })
       .catch((error) => {
         console.log("Error fetching Bookingss: ", error);
@@ -45,7 +44,7 @@ const TableTwo = () => {
 
   useEffect(() => {
     //Fetch Bookings
-    fetch("http://localhost:3000/rooms", {
+    fetch(`${url}/rooms`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -61,13 +60,10 @@ const TableTwo = () => {
         console.log("Error fetching Rooms: ", error);
       });
   }, []);
-
-  // Search Bookings
-
+ 
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
-
+    
     if (term === "") {
       // If the search term is empty, display the original bookings
       setFilteredBookings(bookings);
@@ -82,145 +78,151 @@ const TableTwo = () => {
     }
   };
 
-  //Show Popup Booking component
-  const handleShowPopup = (id) => {
-    setBookingId(id);
-    setActionType("update");
-    setPopupOpen(true);
+  //POST stkPush for mpesa payment
+  const handleSubmitPayment = async (paymentData) => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(`${url}/stkpush`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(paymentData),
+      });
+
+      const data = await response.json();
+      setIsLoading(false);
+
+      if (response.ok) {
+        // Set state and wait for it to complete
+
+        toast.success(data[1].ResponseDescription, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        console.log(data);
+        toast.error(`Error ${data.error}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
 
+  const handleStkQuery = async () => {
+    setIsLoading(true);
+    try {
+      const payload = {
+        checkoutRequestID: checkoutRequestId,
+      };
+
+      const response = await fetch(`${url}/stkquery`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // You might need additional headers based on your requirements
+        },
+        body: JSON.stringify(payload),
+      });
+      setIsLoading(false);
+      const data = await response.json();
+
+      if (response.ok && data[0] !== "error") {
+        // Success
+        toast.info("Payment successful", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        // Error
+        const errorMessage =
+          data[1]["errorMessage"] || "An unknown error occurred.";
+        toast.error(`Payment failed: ${errorMessage}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
+  // Show Mail Popup
   const handleMessagePopup = (id) => {
     setBookingId(id);
-    setActionType("mail");
-    setPopupOpen(true);
+    setMailPopupOpen(true);
   };
 
-  //Hide Popup booking component
+  // Show Payment Popup
+  const handleShowPopup = (id) => {
+    setBookingId(id);
+    setPaymentPopupOpen(true);
+    const booking = bookings.find((booking) => booking.id === bookingId);
+    if (!booking || !booking.payment) {
+      return;
+    }
+    setCheckoutRequestId(booking.payment.checkout);
+  };
+
+  // Close Popups
   const handleClosePopup = () => {
-    setPopupOpen(false);
+    setMailPopupOpen(false);
+    setPaymentPopupOpen(false);
   };
-
-  //create a new booking if user is admin
-  function handleAddBooking(newBooking) {
-    setBookings([...bookings, newBooking]);
-  }
-
-  function handleAddClick(data) {
-    fetch("http://localhost:3000/bookings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        response.json().then((data) => {
-          if (response.ok) {
-            // handleAddRoom(response)
-            setPopupOpen(false);
-            handleAddBooking(data);
-            toast.success(data.message, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          } else {
-            console.log(response.statusText);
-            toast.error(response.statusText, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          }
-        });
-      })
-
-      .catch((error) => {
-        toast.error(error, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        console.log(error);
-      });
-  }
-  //Update Room Details
-  function handleUpdateBooking(id, data) {
-    fetch(`http://localhost:3000/bookings/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        response.json().then((data) => {
-          if (response.ok) {
-            setPopupOpen(false);
-            toast.success(data.message, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          } else {
-            console.log(data);
-            toast.error(response.statusText, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          }
-        });
-      })
-      .catch((error) => {
-        toast.error(error, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        console.log(error);
-      });
-  }
-
   //Send Booking user Mail
   function handleSendMail(data) {
+    setIsLoading(true);
     const booking = bookings.find((booking) => booking.id === bookingId);
     data.email = booking.user.email;
-    fetch("http://localhost:3000/bookings/send_email", {
+    fetch(`${url}/bookings/send_email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -230,9 +232,10 @@ const TableTwo = () => {
       body: JSON.stringify(data),
     })
       .then((response) => {
+        setIsLoading(false);
         if (response.ok) {
           // handleAddRoom(response)
-          setPopupOpen(false);
+          setMailPopupOpen(false);
 
           toast.success("Mail Sent!", {
             position: "top-right",
@@ -272,116 +275,11 @@ const TableTwo = () => {
         console.log(error);
       });
   }
-
-  // Delete a room if user is admin
-  function handleDeleteBooking(id) {
-    const updatedBookings = bookings.filter((booking) => booking.id !== id);
-    setBookings(updatedBookings);
-  }
-
-  function handleDeleteClick(id) {
-    fetch(`http://localhost:3000/bookings/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      if (response.ok) {
-        handleDeleteBooking(id);
-        toast.success("Deleted", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      } else {
-        response.text().then((errorMessage) => {
-          // Handle error message here
-          toast.error(errorMessage, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-        });
-      }
-    });
-  }
-
-  function handleBookingStatus(id) {
-    // Find the index of the booking with the given id
-    const index = bookings.findIndex((booking) => booking.id === id);
-
-    // Toggle the approved value
-    const updatedBookings = [...bookings];
-    updatedBookings[index].approved = !updatedBookings[index].approved;
-
-    // Update the state with the modified bookings array
-    setBookings(updatedBookings);
-
-    fetch(`http://localhost:3000/bookings/${id}/approve`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(),
-    })
-      .then((response) => {
-        response.json().then((data) => {
-          if (data.message === "Booking approved") {
-            // handleAddRoom(response)
-
-            toast.success(data.message, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          } else {
-            console.log(data);
-            toast.error(data.message, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          }
-        });
-      })
-      .catch((error) => {
-        toast.error(error, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        console.log(error);
-      });
-  }
+  
+  
   return (
     <div className=" col-span-12 h-[500px] overflow-y-auto  xl:col-span-8 rounded-sm bg-white px-5 pt-6 pb-2.5 shadow-default  sm:px-7.5 xl:pb-1">
+    { isLoading && <Loading/>}
       <div className="flex flex-col gap-y-4 ">
         <div className="border p-2 rounded-md w-4/5 flex items-center">
           <input
@@ -397,110 +295,117 @@ const TableTwo = () => {
         </div>
 
         <div className="max-w-full overflow-x-auto ">
-          <table className="w-full table-auto">
-            <thead>
-              <tr className="bg-accent text-left dark:bg-meta-4">
-                <th className="min-w-[220px] py-4 px-4 font-medium text-white xl:pl-11">
-                  Guest
-                </th>
-                <th className="min-w-[150px] py-4 px-4 font-medium text-white">
-                  From-to
-                </th>
-                <th className="min-w-[120px] py-4 px-4 font-medium text-white">
-                  Approved
-                </th>
-                <th className="py-4 px-4 font-medium text-white">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredBookings &&
-                filteredBookings.map((booking) => {
-                  const matchingRoom = rooms.find(
-                    (room) => room.id === booking.room_id
-                  );
+        <div>
+        <h2 className="uppercase  text-xl font-medium">Upcoming Bookings</h2>
+      <table className="w-full table-auto ">
+        <thead>
+          <tr className=" text-left border-b border-stroke items-center">
+            <th className="min-w-[220px] py-4 px-4 font-medium font-secondary text-accent xl:pl-11">
+              guest
+            </th>
+            <th className="min-w-[150px] py-4 px-4 font-medium text-accent">
+                    From-to
+                  </th>
+                  <th className="min-w-[120px] py-4 px-4 font-medium text-accent">
+                    Approved
+                  </th>
 
-                  return (
-                    <tr key={booking.id}>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {booking.user.username}
-                        </h5>
-                        <p className="text-sm">
-                          {matchingRoom ? matchingRoom.room_type : "Loading..."}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                        {new Date(booking.start_date).toLocaleDateString("en-GB")}
-                        </p>
-                        <p className="text-black dark:text-white">
-                        {new Date(booking.end_date).toLocaleDateString("en-GB")}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <button
-                          className={`inline-flex rounded-full ${
-                            booking.approved ? "bg-green-500" : "bg-red-500"
-                          }  py-1 px-3 text-sm font-medium text-white`}
-                          onClick={() => handleBookingStatus(booking.id)}
-                        >
-                          {booking.approved.toString()}
-                        </button>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <div className="flex items-center space-x-3.5">
-                          <button
-                            className="hover:text-primary"
-                            onClick={() => {
-                              handleMessagePopup(booking.id);
-                              setActionType("mail");
-                            }}
-                          >
-                            <MdMailOutline />
-                          </button>
-                          <button
-                            className="hover:text-primary"
-                            onClick={() => {
-                              handleShowPopup(booking.id);
-                              setActionType("update");
-                            }}
-                          >
-                            <MdBrowserUpdated />
-                          </button>
+            <th className="min-w-[120px] py-4 px-4 font-secondary text-accent">
+              message
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredBookings &&
+            filteredBookings.map((booking) => {
+              const matchingRoom = rooms.find(
+                      (room) => room.id === booking.room_id)
 
+              return (
+                <tr key={booking.id}>
+                  <td className="border-b border-[#eee] py-5 px-4 pl-9 xl:pl-11">
+                    <h5 className="font-medium text-black dark:text-white">
+                      {booking.user.username}
+                    </h5>
+                    <p className="text-sm">
+                            {matchingRoom ? matchingRoom.room_number : "Loading..."}
+                          </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p className="text-black dark:text-white">
+                          {new Date(booking.start_date).toLocaleDateString("en-GB")}
+                          </p>
+                          <p className="text-black dark:text-white">
+                          {new Date(booking.end_date).toLocaleDateString("en-GB")}
+                          </p>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                           <button
-                            className="hover:text-primary"
-                            onClick={() => handleDeleteClick(booking.id)}
+                            className={`inline-flex rounded-full ${
+                              booking.approved ? "bg-green-500" : "bg-red-500"
+                            }  py-1 px-3 text-sm font-medium text-white`}
+                            
                           >
-                            <MdDeleteOutline />
+                            {booking.approved.toString()}
                           </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              {isPopupOpen && actionType === "update" && (
-                <BookingUpdatePopup
-                  onClose={handleClosePopup}
-                  onBookingUpdate={handleUpdateBooking}
-                  bookingId={bookingId}
-                  rooms={rooms}
-                />
-              )}
+                        </td>
+                  <td className="border-b border-[#eee] py-5 px-4">
+                    <div className="flex items-center space-x-3.5">
+                      <button
+                        className=" "
+                        onClick={() => {
+                          handleMessagePopup(booking.id);
+                          setBookingId(booking.id);
+                        }}
+                      >
+                        <MdMailOutline />
+                      </button>
 
-              {isPopupOpen && actionType === "mail" && (
-                <UserMail
-                  onClose={handleClosePopup}
-                  onSendMail={handleSendMail}
-                  bookingId={bookingId}
-                  // Other MailPopup props
-                />
-              )}
-            </tbody>
-          </table>
+                      <button
+                        className=""
+                        onClick={() => {
+                          handleShowPopup(booking.id);
+                          setBookingId(booking.id);
+                          setBooking(booking)
+                        }}
+                      >
+                        <BsCash />
+                      </button>
+                     
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+      {isPaymentPopupOpen && (
+                        <AdminPayment
+                          onClose={handleClosePopup}
+                          onStkQuery={handleStkQuery}
+                          onStkPush={handleSubmitPayment}
+                          booking={booking}
+                          bookingId={bookingId}
+
+                          // Other MailPopup props
+                        />
+                      )}
+      {isMailPopupOpen && (
+        <UserMail
+          onClose={handleClosePopup}
+          onSendMail={handleSendMail}
+          bookingId={bookingId}
+          setCheckoutRequestId={setCheckoutRequestId}
+
+          // Other MailPopup props
+        />
+      )}
+    </div>
+        </div>
+         
         </div>
       </div>
-    </div>
+  
   );
 };
 

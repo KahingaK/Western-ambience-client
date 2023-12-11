@@ -6,6 +6,7 @@ import TableThree from "../components/TableThree";
 import ChatCard from "../components/ReviewCard";
 import AdminBookForm from "../components/AdminBookForm";
 import UpcomingBookings from "../components/UpcomingBookings";
+import { Link } from "react-router-dom";
 
 function AdminDashboard() {
   const {currentUser} = useContext(UserContext);
@@ -75,7 +76,8 @@ function AdminDashboard() {
           <div className="cols-span-4 ">
             {showTableThree ? (
               <h2 className="font-primary text-[45px]">
-                Bookings
+              <Link to= "/admin-bookings"> Bookings</Link>
+               
               </h2>
             ) : (
               <h2 className="font-primary text-[45px]">Rooms</h2>

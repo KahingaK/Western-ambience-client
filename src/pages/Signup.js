@@ -2,12 +2,13 @@ import React, { useState, useContext } from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { cookies, setToken, setCurrentUser } = useContext(UserContext);
+  const {url, cookies, setToken, setCurrentUser } = useContext(UserContext);
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -23,7 +24,7 @@ function Signup() {
 
     if (password === confirmPassword) {
       // Perform sign up request
-      fetch("http://localhost:3000/signup", {
+      fetch(` ${url}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,11 +32,12 @@ function Signup() {
         body: JSON.stringify({ username, email, password }),
       })
         .then((response) => {
-          setIsLoading(false);
+          
 
           if (response.ok) {
             response.json().then((data) => {
               console.log(data);
+              setIsLoading(false);
               toast.success(data.message, {
                 position: "top-right",
                 autoClose: 3000,
@@ -56,6 +58,7 @@ function Signup() {
           } else {
             response.json().then((err) => {
               setError(err.error)
+              setIsLoading(false);
               toast.error(err.error, {
                 position: "top-right",
                 autoClose: 3000,
@@ -70,7 +73,7 @@ function Signup() {
           }
         })
         .catch(() => {
-          setIsLoading(false);
+          
           setError("An unexpected error occurred.");
         });
     } else {
@@ -81,6 +84,7 @@ function Signup() {
   return (
     <section className="gradient-form min-h-screen bg-white dark:bg-white flex flex-col lg:flex-row">
       {/* Left side with the background image */}
+      { isLoading && <Loading/>}
       <div
         className="lg:w-1/2 bg-cover bg-center"
         style={{ backgroundImage: "url(your-image-url.jpg)" }}
@@ -103,7 +107,7 @@ function Signup() {
                 <NavLink to="/">
                   <div className="text-center">
                     <h3 className="text-3xl font-primary text-accent">
-                      Western Ambience Bliss Hotel
+                   Sign-up
                     </h3>
                   </div>
                 </NavLink>

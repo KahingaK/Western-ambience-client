@@ -7,6 +7,7 @@ import GuestsDropdown from "./GuestsDropdown";
 import { toast } from "react-toastify";
 import { RoomContext } from "../context/RoomContext";
 import { UserContext } from "../context/UserContext";
+import Loading from "./Loading";
 
 function AdminBookForm() {
   
@@ -14,11 +15,12 @@ function AdminBookForm() {
   const [roomId, setRoomId] = useState("");
   const [room, setRoom] = useState("Room");
   const { start, end, guests, refresh } = useContext(RoomContext);
-  const { token, currentUser } = useContext(UserContext);
+  const { url, token, currentUser } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     //Fetch Rooms
-    fetch("http://localhost:3000/rooms", {
+    fetch(`${url}/rooms`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,9 +28,9 @@ function AdminBookForm() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+
         setRooms(data);
-        console.log(rooms);
+
       })
       .catch((error) => {
         console.log("Error fetching Rooms: ", error);
@@ -36,6 +38,7 @@ function AdminBookForm() {
   }, []);
 
   function handleSubmitBooking(event) {
+    setIsLoading(true)
     event.preventDefault();
 
     fetch("http://localhost:3000/bookings", {
@@ -52,11 +55,14 @@ function AdminBookForm() {
         user_id: currentUser.id,
       }),
     })
-      .then((response) => {
+    .then((response) => {
+      response.json().then((data) => {
+      
         console.log(response);
+        setIsLoading(false)
         if (response.ok) {
          
-          toast.success(response.body, {
+          toast.success(data.message, {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: true,
@@ -96,10 +102,12 @@ function AdminBookForm() {
           theme: "colored",
         });
       });
+    })
   }
 
   return (
     <div>
+    {isLoading && <Loading/>}
       <form
         className="h-[300px] w-full lg:h-[70px] "
         onSubmit={handleSubmitBooking}
@@ -133,7 +141,7 @@ function AdminBookForm() {
                       key={index}
                       className="border-b last:border-b-0 h-12 hover:bg-accent hover:text-white w-full flex justify-center items-center cursor-pointer"
                       onClick={() => {
-                        setRoomId(index);
+                        setRoomId(room.id);
                         setRoom(room.room_number);
                       }}
                     >

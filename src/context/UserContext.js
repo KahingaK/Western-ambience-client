@@ -15,6 +15,7 @@ function UserProvider({children}) {
     // const navigate = useNavigate();
     const [token, setToken] = useState(cookies.get('token') || null);
     const [currentUser, setCurrentUser] = useState(cookies.get('user') || null)
+    const url = "http://127.0.0.1:3000"
 
     console.log(currentUser);
 
@@ -39,7 +40,7 @@ function UserProvider({children}) {
     
     };
 
-    const value = useMemo(() => ({ token, setToken, logout, setCurrentUser, currentUser, cookies }));
+    const value = useMemo(() => ({ url, token, setToken, logout, setCurrentUser, currentUser, cookies }));
 
 
   return (

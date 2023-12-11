@@ -16,6 +16,7 @@ import RoomDetails from './pages/RoomDetails';
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import Services from './components/Services';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminBookings from './components/AdminBookings';
 
 // import { FaSteamSquare } from 'react-icons/fa';
 // import { UserContext } from './context/UserContext';
@@ -49,7 +50,11 @@ const isAdmin = currentUser && currentUser.role === 'admin';
             <Route path="/rooms" element={<RoomList />}>rooms</Route>
             <Route path="/restaurant" element={<Restaurant />}>restaurant</Route>
             <Route path="/services" element={<Services />}>restaurant</Route>
-            <Route path="/dashboard" element={<AdminDashboard/>}>restaurant</Route>
+            <Route 
+            path="/admin-bookings"
+            element={(
+  isAdmin ? <AdminBookings/> : <AdminDashboard/>
+)} />
 
             <Route path = "/room/:id" element = {<RoomDetails/>}/>
         </Routes>

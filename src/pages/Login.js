@@ -3,9 +3,10 @@ import { useState, useContext } from "react";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 export default function Login() {
-  const { cookies, setToken, setCurrentUser } = useContext(UserContext);
+  const { url, cookies, setToken, setCurrentUser } = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +22,7 @@ export default function Login() {
     setError(null);
 
     // Perform login request
-    fetch("http://localhost:3000/login", {
+    fetch(`${url}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +30,7 @@ export default function Login() {
       body: JSON.stringify({ email, password }),
     })
       .then((response) => {
-        setIsLoading(false);
+       
 
         if (response.ok) {
           response.json().then((data) => {
@@ -48,6 +49,7 @@ export default function Login() {
             cookies.set("user", data.user, { path: "/" });
             navigate("/");
             setToken(data.token);
+            setIsLoading(false);
             setCurrentUser(data.user);
           });
         } else {
@@ -76,6 +78,7 @@ export default function Login() {
   return (
     <section className="gradient-form min-h-screen bg-white dark:bg-white flex flex-col lg:flex-row">
       {/* Left side with the image */}
+      { isLoading && <Loading/>}
       <div
         className="lg:w-1/2 h-full bg-cover bg-center"
         style={{ backgroundImage: "url(your-image-url.jpg)" }}
@@ -101,7 +104,7 @@ export default function Login() {
             <NavLink to="/">
               <div className="text-center">
                 <h3 className="text-3xl font-primary text-accent">
-                  Western Ambience Bliss
+                Login
                 </h3>
               </div>
             </NavLink>
