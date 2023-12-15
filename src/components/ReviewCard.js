@@ -5,11 +5,13 @@ import { UserContext } from "../context/UserContext";
 import { MdDeleteOutline } from "react-icons/md";
 import { FaPen } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Loading from "./Loading";
 
 const ChatCard = () => {
   const [reviews, setReviews] = useState([]);
   const [reviewContent, setReviewContent] = useState("");
-  const { token } = useContext(UserContext);
+  const { url, token } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3000/reviews", {
@@ -35,8 +37,9 @@ const ChatCard = () => {
   }
 
   function handleAddClick(e) {
+    setIsLoading(true)
     e.preventDefault();
-    fetch("http://localhost:3000/reviews", {
+    fetch(`${url}/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,6 +50,7 @@ const ChatCard = () => {
     })
       .then((response) => {
         response.json().then((data) => {
+          setIsLoading(false)
           if (response.ok) {
             // handleAddReview(data.review);
             console.log(data.review);
@@ -94,7 +98,8 @@ const ChatCard = () => {
 
   return (
     <div className="col-span-12 h-[500px] overflow-y-auto rounded-sm  bg-white px-4 py-6 shadow-default  xl:col-span-4">
-      <h3 className="uppercase  text-xl font-medium pb-2">Reviews</h3>
+    {isLoading && <Loading/>}
+      <h3 className="uppercase  text-xl text-center font-medium pb-2">Reviews</h3>
       <div className="border mt-1 p-2 rounded-md w-full flex lg:flex-col">
         <div className=" flex-grow ">
           <input

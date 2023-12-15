@@ -32,23 +32,23 @@ function BookingUpdatePopup({onClose, bookingId, onBookingUpdate, rooms}) {
           </span>
 
           <div className=" w-full h-full ">
-            <div className="py-4 px-6 bg-accent/50 ">
+            <div className="py-4 px-6 bg-white ">
               <div className="flex flex-col space-y-4 mb-4">
                 <div className="py-4 px-4  mb-4">
                   <div className="flex flex-col space-y-4 mb-4">
-                    <h3 className="font-secondary uppercase font-semibold text-white w-4/6">
+                    <h3 className="font-secondary uppercase font-semibold text-accent w-4/6">
                       Update Booking
                     </h3>
-                    <div className="h-[60px]">
+                    <div className="h-[60px] shadow-md">
                       <CheckIn />
                     </div>
-                    <div className="h-[60px]">
+                    <div className="h-[60px] shadow-md">
                       <CheckOut />
                     </div>
-                    <div className="h-[60px]">
+                    <div className="h-[60px] shadow-md">
                       <GuestsDropdown />
                     </div>
-                    <div className="h-[60px]">
+                    <div className="h-[60px] shadow-md">
             <Menu as="div" className="w-full h-full bg-white  relative">
               <Menu.Button className="w-full h-full flex items-center justify-between px-8">
                 {room}

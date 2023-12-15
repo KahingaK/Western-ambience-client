@@ -10,6 +10,7 @@ import { EffectFade, Autoplay } from "swiper/modules";
 import Img1 from "../assets/img/heroSlider/1.jpg";
 import Img2 from "../assets/img/heroSlider/2.jpg";
 import Img3 from "../assets/img/heroSlider/3.jpg";
+import { Link } from "react-router-dom";
 
 function HeroSlider() {
   //Images for Home background
@@ -17,17 +18,17 @@ function HeroSlider() {
     {
       title: "Foremost in quality",
       bg: Img1,
-      btnText: "Room & Suites",
+      btnText: "Restaurant",
     },
     {
       title: "Foremost in quality",
       bg: Img2,
-      btnText: "Room & Suites",
+      btnText: "Restaurant",
     },
     {
       title: "Foremost in quality",
       bg: Img3,
-      btnText: "Room & Suites",
+      btnText: "Restaurant",
     },
   ];
 
@@ -53,10 +54,15 @@ function HeroSlider() {
                 <h1 className="text-[32px] font-primary uppercase tracking-[2px] max-w-[920px] lg:text-[68px] leading-tight mb-6 ">
                   {slide.title}
                 </h1>
-                
+               
                 <button className="btn btn-lg btn-primary mx-auto">
+                <Link
+                to="/restaurant">
                   {slide.btnText}
+                  </Link>
                 </button>
+                
+                
               </div>
               <div className="absolute top-0 w-full h-full">
                 <img

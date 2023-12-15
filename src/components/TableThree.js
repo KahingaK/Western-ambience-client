@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { MdAddBox, MdBrowserUpdated, MdDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";
 import { UserContext } from "../context/UserContext";
+import Loading from "./Loading";
 import RoomDetailsPopup from "./RoomDetailsPopup";
 
 //Rooms Table
@@ -11,11 +12,12 @@ const TableThree = () => {
   const [actionType, setActionType] = useState("add");
   const [roomId, setRoomId] = useState()
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const {token} = useContext(UserContext)
+  const {url, token} = useContext(UserContext)
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     //Fetch Rooms
-    fetch("http://localhost:3000/rooms", {
+    fetch(`${url}/rooms`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -69,8 +71,9 @@ const TableThree = () => {
   }
 
   function handleAddClick(data) {
+    setIsLoading(true)
   
-    fetch("http://localhost:3000/rooms", {
+    fetch(`${url}/rooms`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +86,7 @@ const TableThree = () => {
     })
       .then((response) => { response.json()
       .then((data) => {
-        
+        setIsLoading(false)
         if (response.ok) {
           // handleAddRoom(response)
        setPopupOpen(false);
@@ -132,8 +135,9 @@ const TableThree = () => {
   }
 //Update Room Details
   function handleUpdateClick(id, data) {
+    setIsLoading(true)
  
-    fetch(`http://localhost:3000/rooms/${id}`, {
+    fetch(`${url}/rooms/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -146,7 +150,7 @@ const TableThree = () => {
     })
     .then((response) => { response.json()
       .then((data) => {
-        
+        setIsLoading(false)
         if (response.ok) {
           // handleAddRoom(response)
        setPopupOpen(false);
@@ -204,7 +208,8 @@ const TableThree = () => {
   }
 
  function handleDeleteClick(id) {
-  fetch(`http://localhost:3000/rooms/${id}`, {
+  setIsLoading(true)
+  fetch(`${url}/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -212,6 +217,7 @@ const TableThree = () => {
     
   })
   .then((response) => {
+    setIsLoading(false)
     if (response.ok) {
       handleDeleteRoom(id);
       toast.success("Deleted", {
@@ -254,7 +260,7 @@ const TableThree = () => {
   // Update the state with the modified bookings array
   setRooms(updatedRooms);
 
-    fetch(`http://localhost:3000/rooms/${id}/available`, {
+    fetch(`${url}/rooms/${id}/available`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -312,6 +318,7 @@ const TableThree = () => {
   }
   return (
     <div className=" col-span-12  rounded-sm  h-[500px] overflow-y-auto  bg-white px-5 pt-6 pb-2.5 shadow-default  sm:px-7.5 xl:col-span-8">
+    { isLoading && <Loading/>}
     <div className="flex flex-col gap-y-4">
     <div className="">
       <button className="btn btn-primary py-4 text-white" onClick={handleAddPopup}>
@@ -331,7 +338,7 @@ const TableThree = () => {
               <th className="min-w-[120px] py-4 px-4 font-medium text-white">
                 Available
               </th>
-              <th className="py-4 px-4 font-medium text-black text-white">
+              <th className="py-4 px-4 font-medium  text-white">
                 Actions
               </th>
             </tr>

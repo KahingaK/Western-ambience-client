@@ -1,31 +1,133 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CheckIn from "../components/CheckIn";
 import CheckOut from "../components/CheckOut";
 import GuestsDropdown from "../components/GuestsDropdown";
 import { UserContext } from "../context/UserContext";
 import { toast } from "react-toastify";
+import Payment from "../components/Payment";
 
 //icons
 import { FaCheck } from "react-icons/fa";
 import { RoomContext } from "../context/RoomContext";
+import Loading from "../components/Loading";
 
 function RoomDetails() {
   const { id } = useParams();
-  const { rooms, guests, start, end, handleSubmitEvent } =
+  const { rooms, guests, start, end, handleSubmitEvent, refresh } =
     useContext(RoomContext);
-  const { token } = useContext(UserContext);
+  const { url, token } = useContext(UserContext);
+  const [payPopup, setPayPopup] = useState(false)
+  const [checkoutId, setCheckoutId] = useState("")
+  const [isLoading, setIsLoading] = useState(false);
+
 
   //get room
   const room = rooms.find((room) => {
     return room.id === Number(id);
   });
   console.log(room);
+  
+  function showPayPopup() {
+    if (token) {
+      setPayPopup(true);
+    } else {
+      // Handle the case when the token is not available, e.g., show an error message
+      console.error('Token is not available. Please log in or obtain a valid token.');
+      refresh()
+      toast.error("You must be logged in to create a booking", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+  
+  function closePayPopup() {    
+    setPayPopup(false)
+  }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    fetch("http://localhost:3000/bookings", {
+  // Handle stripe POST requests
+  async function handleSubmitBookingStripe() {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${url}/bookings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          start_date: start,
+          end_date: end,
+          notes: guests,
+          room_type: room.type,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        // Set state and wait for it to complete
+        await handleSubmitPayment({
+          booking_id: data.id,
+          user_id: data.user_id,
+         
+          // Add other payment details as needed
+        });
+        refresh();
+        setIsLoading(false);
+  
+        toast.success(`Booking received`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        console.log(data);   
+        setIsLoading(false);     
+        toast.error(`Error ${data[0]} ${data[1]}}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  }
+  
+  // Handle mpesa POST requests
+  async function handleSubmitBooking(number, amount) {
+    setIsLoading(true);
+  try {
+    const response = await fetch(`${url}/bookings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,45 +139,83 @@ function RoomDetails() {
         notes: guests,
         room_type: room.type,
       }),
-    })
-      .then((response) => { response.json()
-        .then(data =>{
-          handleSubmitEvent(event);
-        if (response.ok) {
-          
-         
-          toast.success(data, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-        } else {
-          
-          console.log(data);
-          toast.error(data.error, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-        }
-        console.log(response);
-      })
-        })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Set state and wait for it to complete
+      await handleSubmitPayment({
+        booking_id: data.id,
+        user_id: data.user_id,
+        amount: amount,
+        phone_number: number,
+        // Add other payment details as needed
+      });
+      refresh();
+      setIsLoading(false);
+      toast.success(`Booking received`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      console.log(data);
+      setIsLoading(false);
+      toast.error(`Error ${data[0]} ${data[1]}}`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    setIsLoading(false);
+    toast.error(error.message, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  }
+}
+
+  //POST stkPush for mpesa payment
+  const handleSubmitPayment = async (paymentData) => {
+    setIsLoading(true);
+
+    try {
+
+      const response = await fetch(`${url}/stkpush`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          paymentData
+        ),
+      });
+      setIsLoading(false);
+      const data = await response.json();
+
+      if (response.ok) {
+        // Set state and wait for it to complete
         
-        
-      .catch((error) => {
-        console.log(error);
-        toast.error(error.error, {
+        toast.success(data[1].ResponseDescription, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -85,11 +225,38 @@ function RoomDetails() {
           progress: undefined,
           theme: "colored",
         });
+      } else {
+        console.log(data);
+        toast.error(`Error ${data.error}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
-  }
+    }
+  };
+
 
   return (
     <section className="">
+      { isLoading && <Loading/>}
       <div className="bg-room bg-cover bg-center h-[560px] relative flex justify-center items-center">
         <div className=" w-full h-full bg-black/70"></div>
         <h1 className="text-6xl text-white z-20 font-primary text-center">
@@ -139,10 +306,19 @@ function RoomDetails() {
                     <div className="h-[60px]">
                       <button
                         className="btn   btn-lg btn-primary w-full"
-                        onClick={(e) => handleSubmit(e)}
+                        onClick={showPayPopup}
                       >
                         book now for {room.price}
                       </button>
+                      {payPopup && (
+        <Payment
+          onClose={closePayPopup}
+          onBookingSubmit={handleSubmitBooking}
+          price = {room.price}
+          
+          
+        />
+      )}
                     </div>
                   </div>
                 </div>

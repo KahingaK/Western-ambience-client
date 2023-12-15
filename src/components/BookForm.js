@@ -6,10 +6,12 @@ import ContactPopUp from "./ContactPopUp";
 import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
 import { RoomContext } from "../context/RoomContext";
+import Loading from "./Loading";
 
 function BookForm() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const { setStart, setEnd, setGuests } = useContext(RoomContext);
+  const [isLoading, setIsLoading ] = useState(false)
   
 
   //change state to show Popup component onclick check btn
@@ -38,7 +40,7 @@ function BookForm() {
   const form = useRef();
 
   const sendEmail = (email, message) => {
-     
+    setIsLoading(true)
 
     // Check if any field is empty
     if (!message || !email) {
@@ -67,6 +69,7 @@ function BookForm() {
       )
       .then(
         (result) => {
+          setIsLoading(false)
           console.log(result.text);
             toast.success("Message sent!", {
             position: "top-right",
@@ -87,7 +90,8 @@ function BookForm() {
 
   return (
     <div>
-      <form  className="h-[300px] w-full lg:h-[70px] ">
+    {isLoading && <Loading/>}
+        <form  className="h-[300px] w-full lg:h-[70px] ">
         <div className="flex flex-col w-full h-full lg:flex-row">
           <div className="flex-1 border-r">
             <CheckIn />
