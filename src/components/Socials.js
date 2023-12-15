@@ -1,6 +1,4 @@
 import React, {useState , useEffect} from 'react'
-import { FaWhatsapp, FaLinkedinIn ,FaAddressCard, FaMapMarkerAlt} from "react-icons/fa";
-
 
 
 function Socials() {
@@ -25,7 +23,7 @@ function Socials() {
              email
             </>
           ),
-          href: "westernambiencebliss@gmail.com",
+          href: "mailto:westernambiencebliss@gmail.com",
         },
          
         {

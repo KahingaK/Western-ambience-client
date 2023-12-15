@@ -63,6 +63,7 @@ const TableTwo = () => {
  
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
     
     if (term === "") {
       // If the search term is empty, display the original bookings
@@ -98,7 +99,7 @@ const TableTwo = () => {
         // Set state and wait for it to complete
 
         toast.success(data[1].ResponseDescription, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -110,7 +111,7 @@ const TableTwo = () => {
       } else {
         console.log(data);
         toast.error(`Error ${data.error}`, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -123,7 +124,7 @@ const TableTwo = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.message, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -156,7 +157,7 @@ const TableTwo = () => {
       if (response.ok && data[0] !== "error") {
         // Success
         toast.info(`Payment: ${data[1]["ResultDesc"]}`, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -170,7 +171,7 @@ const TableTwo = () => {
         const errorMessage =
           data[1]["errorMessage"] || "An unknown error occurred.";
         toast.error(`Payment: ${errorMessage}`, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -183,7 +184,7 @@ const TableTwo = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.message, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -238,7 +239,7 @@ const TableTwo = () => {
           setMailPopupOpen(false);
 
           toast.success("Mail Sent!", {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -250,7 +251,7 @@ const TableTwo = () => {
         } else {
           console.log(response.statusText);
           toast.error(response.statusText, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,

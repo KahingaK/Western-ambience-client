@@ -36,7 +36,7 @@ function RoomDetails() {
       console.error('Token is not available. Please log in or obtain a valid token.');
       refresh()
       toast.error("You must be logged in to create a booking", {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -84,7 +84,7 @@ function RoomDetails() {
         setIsLoading(false);
   
         toast.success(`Booking received`, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -97,7 +97,7 @@ function RoomDetails() {
         console.log(data);   
         setIsLoading(false);     
         toast.error(`Error ${data[0]} ${data[1]}}`, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -111,7 +111,7 @@ function RoomDetails() {
       console.log(error);
       setIsLoading(false);
       toast.error(error.message, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -155,7 +155,7 @@ function RoomDetails() {
       refresh();
       setIsLoading(false);
       toast.success(`Booking received`, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -168,7 +168,7 @@ function RoomDetails() {
       console.log(data);
       setIsLoading(false);
       toast.error(`Error ${data[0]} ${data[1]}}`, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -182,7 +182,7 @@ function RoomDetails() {
     console.log(error);
     setIsLoading(false);
     toast.error(error.message, {
-      position: "top-right",
+      position: "top-center",
       autoClose: 3000,
       hideProgressBar: true,
       closeOnClick: true,
@@ -228,7 +228,7 @@ function RoomDetails() {
       } else {
         console.log(data);
         toast.error(`Error ${data.error}`, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -241,7 +241,7 @@ function RoomDetails() {
     } catch (error) {
       console.log(error);
       toast.error(error.message, {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,

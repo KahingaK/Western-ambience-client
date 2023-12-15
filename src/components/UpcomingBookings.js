@@ -218,7 +218,7 @@ function UpcomingBookings() {
           setMailPopupOpen(false);
 
           toast.success("Mail Sent!", {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -230,7 +230,7 @@ function UpcomingBookings() {
         } else {
           console.log(response.statusText);
           toast.error(response.statusText, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -243,7 +243,7 @@ function UpcomingBookings() {
       })
       .catch((error) => {
         toast.error(error, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,

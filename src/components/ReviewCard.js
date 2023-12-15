@@ -56,7 +56,7 @@ const ChatCard = () => {
             console.log(data.review);
             setReviewContent("");
             toast.success(data.message, {
-              position: "top-right",
+              position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
               closeOnClick: true,
@@ -68,7 +68,7 @@ const ChatCard = () => {
           } else {
             console.log(response.statusText);
             toast.error(response.statusText || "an error occured", {
-              position: "top-right",
+              position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
               closeOnClick: true,
@@ -83,7 +83,7 @@ const ChatCard = () => {
 
       .catch((error) => {
         toast.error( "An error occurred", {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,

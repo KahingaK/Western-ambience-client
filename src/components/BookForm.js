@@ -47,7 +47,7 @@ function BookForm() {
       // Handle the error, e.g., show an error message to the user
       console.error("Please fill in all fields.");
       toast.error("Please fill in all fields.", {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -72,7 +72,7 @@ function BookForm() {
           setIsLoading(false)
           console.log(result.text);
             toast.success("Message sent!", {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,

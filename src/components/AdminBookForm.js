@@ -63,7 +63,7 @@ function AdminBookForm() {
         if (response.ok) {
          
           toast.success(data.message, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -76,7 +76,7 @@ function AdminBookForm() {
           
           console.log(response.statusText);
           toast.error(response.statusText, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -92,7 +92,7 @@ function AdminBookForm() {
       })
       .catch((error) => {
         toast.error(error, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
