@@ -155,7 +155,7 @@ const TableThree = () => {
           // handleAddRoom(response)
        setPopupOpen(false);
        toast.success(data.message, {
-         position: "top-right",
+         position: "top-center",
          autoClose: 3000,
          hideProgressBar: true,
          closeOnClick: true,
@@ -168,7 +168,7 @@ const TableThree = () => {
        } else {
          console.log(data);
          toast.error(response.statusText, {
-           position: "top-right",
+           position: "top-center",
            autoClose: 3000,
            hideProgressBar: true,
            closeOnClick: true,
@@ -185,7 +185,7 @@ const TableThree = () => {
       })})
       .catch((error) => {
         toast.error(error, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -221,7 +221,7 @@ const TableThree = () => {
     if (response.ok) {
       handleDeleteRoom(id);
       toast.success("Deleted", {
-        position: "top-right",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,
@@ -234,7 +234,7 @@ const TableThree = () => {
       response.text().then(errorMessage => {
         // Handle error message here
         toast.error(errorMessage, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -277,7 +277,7 @@ const TableThree = () => {
           // handleAddRoom(response)
 
           toast.success(data.message, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -289,7 +289,7 @@ const TableThree = () => {
         } else {
           console.log(data);
           toast.error(data.message, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -303,7 +303,7 @@ const TableThree = () => {
     })
       .catch((error) => {
         toast.error(error, {
-          position: "top-right",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,

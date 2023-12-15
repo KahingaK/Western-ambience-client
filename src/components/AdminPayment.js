@@ -40,7 +40,7 @@ function AdminPayment({booking, onClose, bookingId, userId, onStkQuery, onStkPus
     if (!booking || !booking.payment) {
       // Display a toast message if no payments are available
       toast.error('No payments available for this booking', {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 3000, // 3 seconds
         hideProgressBar: false,
         closeOnClick: true,

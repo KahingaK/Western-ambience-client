@@ -39,7 +39,7 @@ function Signup() {
               console.log(data);
               setIsLoading(false);
               toast.success(data.message, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -60,7 +60,7 @@ function Signup() {
               setError(err.error)
               setIsLoading(false);
               toast.error(err.error, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,

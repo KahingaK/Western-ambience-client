@@ -126,7 +126,7 @@ function AdminBookings() {
               setPopupOpen(false);
               handleAddBooking(data);
               toast.success(data.message, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -138,7 +138,7 @@ function AdminBookings() {
             } else {
               console.log(response.statusText);
               toast.error(response.statusText, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -153,7 +153,7 @@ function AdminBookings() {
   
         .catch((error) => {
           toast.error(error, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -183,7 +183,7 @@ function AdminBookings() {
               setIsLoading(false)
               setPopupOpen(false);
               toast.success(data.message, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -195,7 +195,7 @@ function AdminBookings() {
             } else {
               console.log(data);
               toast.error(response.statusText, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -209,7 +209,7 @@ function AdminBookings() {
         })
         .catch((error) => {
           toast.error(error, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -243,7 +243,7 @@ function AdminBookings() {
             setPopupOpen(false);
   
             toast.success("Mail Sent!", {
-              position: "top-right",
+              position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
               closeOnClick: true,
@@ -255,7 +255,7 @@ function AdminBookings() {
           } else {
             console.log(response.statusText);
             toast.error(response.statusText, {
-              position: "top-right",
+              position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
               closeOnClick: true,
@@ -268,7 +268,7 @@ function AdminBookings() {
         })
         .catch((error) => {
           toast.error(error, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -299,7 +299,7 @@ function AdminBookings() {
         if (response.ok) {
           handleDeleteBooking(id);
           toast.success("Deleted", {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,
@@ -312,7 +312,7 @@ function AdminBookings() {
           response.text().then((errorMessage) => {
             // Handle error message here
             toast.error(errorMessage, {
-              position: "top-right",
+              position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
               closeOnClick: true,
@@ -354,7 +354,7 @@ function AdminBookings() {
               // handleAddRoom(response)
   
               toast.success(data.message, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -366,7 +366,7 @@ function AdminBookings() {
             } else {
               console.log(data);
               toast.error(data.message, {
-                position: "top-right",
+                position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -380,7 +380,7 @@ function AdminBookings() {
         })
         .catch((error) => {
           toast.error(error, {
-            position: "top-right",
+            position: "top-center",
             autoClose: 3000,
             hideProgressBar: true,
             closeOnClick: true,

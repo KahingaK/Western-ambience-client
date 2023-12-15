@@ -36,7 +36,7 @@ export default function Login() {
           response.json().then((data) => {
             console.log(data.user);
             toast.success(data.message, {
-              position: "top-right",
+              position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
               closeOnClick: true,
@@ -56,7 +56,7 @@ export default function Login() {
           response.json().then((err) => {
             setError(err.error)
             toast.error(err.error, {
-              position: "top-right",
+              position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
               closeOnClick: true,
