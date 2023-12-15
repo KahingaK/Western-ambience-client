@@ -155,7 +155,7 @@ const TableTwo = () => {
 
       if (response.ok && data[0] !== "error") {
         // Success
-        toast.info("Payment successful", {
+        toast.info(`Payment: ${data[1]["ResultDesc"]}`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -169,7 +169,7 @@ const TableTwo = () => {
         // Error
         const errorMessage =
           data[1]["errorMessage"] || "An unknown error occurred.";
-        toast.error(`Payment failed: ${errorMessage}`, {
+        toast.error(`Payment: ${errorMessage}`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,

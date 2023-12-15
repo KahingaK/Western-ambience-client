@@ -20,7 +20,7 @@ function Header() {
     <header
       className={`${
         header ? "bg-white py-6 shadow-lg " : "bg:transparent py-8"
-      } fixed z-50 w-full transition-all duration-300`}
+      } fixed z-40 w-full transition-all duration-300`}
     >
       <div className="container mx-auto flex flex-col items-center gap-y-6 lg:flex-row lg:justify-between lg:gap-y-0">
         <a href="/">
@@ -31,18 +31,38 @@ function Header() {
         
         </a>
         <nav className="flex font-tertiary tracking-[3px] text-[15px] items-center gap-x-4 lg:gap-8 ">
-          <a href="/" className="transition hover:text-accent">
-            Home
-          </a>
-          <a href="/rooms" className="transition hover:text-accent">
-            Rooms
-          </a>
-          <a href="/restaurant" className="transition hover:text-accent">
-            Restaurant
-          </a>
-          <a href="/services" className="transition hover:text-accent">
-            Services
-          </a>
+          
+          <Link
+              to = "/"
+              
+              className="transition hover:text-accent cursor-pointer"
+            >
+              Home
+            </Link>
+
+         
+          <Link
+              to = "/rooms"
+              
+              className="transition hover:text-accent cursor-pointer"
+            >
+              Rooms
+            </Link>
+         
+            <Link
+              to = "/restaurant"
+              
+              className="transition hover:text-accent cursor-pointer"
+            >
+              Restaurant
+            </Link>
+            <Link
+              to = "/rooms"
+              
+              className="transition hover:text-accent cursor-pointer"
+            >
+              Services
+            </Link>
           {isLoggedIn ? (
             <Link
               to = "/login"

@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { BsCash } from "react-icons/bs";
 import { MdMacroOff, MdMailOutline, MdPayment, MdSearch } from "react-icons/md";
 import { UserContext } from "../context/UserContext";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import UserMail from "./UserMail";
 import AdminPayment from "./AdminPayment";
 import Loading from "./Loading";
@@ -12,7 +12,6 @@ function UpcomingBookings() {
   const [bookingId, setBookingId] = useState("");
   const [isMailPopupOpen, setMailPopupOpen] = useState(false); // New state for mail popup
   const [isPaymentPopupOpen, setPaymentPopupOpen] = useState(false); //
-  const [checkoutRequestId, setCheckoutRequestId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [filteredBookings, setFilteredBookings] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -117,7 +116,7 @@ function UpcomingBookings() {
     }
   };
 
-  const handleStkQuery = async () => {
+  const handleStkQuery = async (checkoutRequestId) => {
     setIsLoading(true);
     try {
       const payload = {
@@ -137,7 +136,7 @@ function UpcomingBookings() {
 
       if (response.ok && data[0] !== "error") {
         // Success
-        toast.info("Payment successful", {
+        toast.success(data[1]["ResultDesc"], {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -151,7 +150,7 @@ function UpcomingBookings() {
         // Error
         const errorMessage =
           data[1]["errorMessage"] || "An unknown error occurred.";
-        toast.error(`Payment failed: ${errorMessage}`, {
+        toast.error(`Payment: ${errorMessage}`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -191,7 +190,6 @@ function UpcomingBookings() {
     if (!booking || !booking.payment) {
       return;
     }
-    setCheckoutRequestId(booking.payment.checkout);
   };
 
   // Close Popups
@@ -345,7 +343,7 @@ function UpcomingBookings() {
           onClose={handleClosePopup}
           onSendMail={handleSendMail}
           bookingId={bookingId}
-          setCheckoutRequestId={setCheckoutRequestId}
+
 
           // Other MailPopup props
         />

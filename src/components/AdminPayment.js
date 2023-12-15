@@ -53,7 +53,7 @@ function AdminPayment({booking, onClose, bookingId, userId, onStkQuery, onStkPus
 
     // Continue with your existing logic for handling the popup
     
-    onStkQuery()
+    onStkQuery(booking.payment.checkout)
   }
 
   
