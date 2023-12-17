@@ -15,7 +15,7 @@ function UserProvider({children}) {
     // const navigate = useNavigate();
     const [token, setToken] = useState(cookies.get('token') || null);
     const [currentUser, setCurrentUser] = useState(cookies.get('user') || null)
-    const url = "https://stingray-app-5qt7s.ondigitalocean.app"
+    const url = "https://24.144.86.27"
 
     console.log(currentUser);
 
