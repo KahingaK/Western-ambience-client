@@ -14,7 +14,7 @@ const ChatCard = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/reviews", {
+    fetch(`${url}/reviews`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
