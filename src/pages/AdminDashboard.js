@@ -90,9 +90,7 @@ function AdminDashboard() {
     { isLoading && <Loading/>}
       <div className="  lg:px-0">
         <div className="text-center">
-          <div className="font-tertiary uppercase text-[15px] tracking-[6px]">
-            Welcome {currentUser.role}
-          </div>
+          
           <div>
             <div>
               <h2 className="font-primary text-[45px]">Home</h2>
@@ -169,9 +167,9 @@ function AdminDashboard() {
           <div className="cols-span-4 ">
             <label
               htmlFor="toggle4"
-              className="flex cursor-pointer select-none items-center"
+              className="flex cursor-pointer select-none pl-6 items-center"
             >
-              <div className="relative">
+              <div className="relative ">
                 <input
                   type="checkbox"
                   id="toggle4"
