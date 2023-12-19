@@ -5,14 +5,89 @@ import TableTwo from "../components/TableTwo";
 import TableThree from "../components/TableThree";
 import ChatCard from "../components/ReviewCard";
 import AdminBookForm from "../components/AdminBookForm";
-import UpcomingBookings from "../components/UpcomingBookings";
+import HeroSliderAd from "../components/HeroSliderAd";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 function AdminDashboard() {
   const {currentUser} = useContext(UserContext);
   const [showTableThree, setShowTableThree] = useState(true);
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+  const {url, token} = useContext(UserContext)
+  const data = { title: title, body: message };
+  const [isLoading, setIsLoading] = useState(false)
+  //SendPost
+ 
+  function handleSendMail(data) {
+    setIsLoading(true);
+   
+    fetch(`${url}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        setIsLoading(false);
+        setTitle("")
+        setMessage("")
+        if (response.ok) {
+          // handleAddRoom(response)
+          
+
+          toast.success("Mail Sent!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        } else {
+          console.log(response.statusText);
+          toast.error(response.statusText, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      })
+      .catch((error) => {
+        toast.error(error, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        console.log(error);
+      });
+  }
+  
+  
+  function handleSubmitMail(e) {
+    e.preventDefault();
+    handleSendMail(data);
+  }
+
   return (
     <div className="py-32 container mx-auto">
+    { isLoading && <Loading/>}
       <div className="  lg:px-0">
         <div className="text-center">
           <div className="font-tertiary uppercase text-[15px] tracking-[6px]">
@@ -27,39 +102,46 @@ function AdminDashboard() {
         <div className="">
           <div className="grid-container-1 grid grid-cols-1 gap-9 lg:grid-cols-2 items-center pb-10 col-end-6 ">
           
-          
+          <div className="h-[300px]  "><HeroSliderAd/></div>  
+           
           <div className="flex flex-col">
-            <div>
-            <h2 className='uppercase  text-xl font-medium'>Send Mail </h2>
-            </div>
-            <div className="rounded-sm  shadow-default ">
+               <div>
+             <h2 className='uppercase  text-xl font-medium'>Send Mail </h2>
+                 </div>
+              <div className="rounded-sm  shadow-default ">
                   <div className="border-b  py-4 px-6.5 ">
-                    <div className="flex flex-col  space-y-4 p-6.5">                  
-                    <div className="space-y-4">
-                      <label className="mb-3 block text-black dark:text-white">
-                        Message
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="title"
-                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-4 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                      />
-                      <input
-                        type="text"
-                        placeholder="Write a message"
-                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-4 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                      />
-                      
-                    </div> 
-                    <button className="btn btn-secondary p-4">send mail</button>           
-                  </div>
+                  <div className="flex flex-col  space-y-4 p-6.5">
+                <div className="space-y-4">
+                  <label className="mb-3 block text-black dark:text-white">
+                    Message
+                  </label>
+                  <input
+                    value={title} // Use value to bind to the state variable
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
+                    type="text"
+                    placeholder="title"
+                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-4 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                  />
+                  <input
+                    value={message} // Use value to bind to the state variable
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                    }}
+                    type="text"
+                    placeholder="Write a message"
+                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-4 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                  />
+                </div>
+                <button onClick={handleSubmitMail} className="btn btn-secondary p-4">send mail</button>
+              </div>
                     </div>
                  
              </div>
           </div>
-         
            
-          <div className="h-[300px] overflow-y-auto "><UpcomingBookings/></div>  
+         
             
           </div>
           
