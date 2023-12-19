@@ -41,7 +41,7 @@ function AdminBookForm() {
     setIsLoading(true)
     event.preventDefault();
 
-    fetch("http://localhost:3000/bookings", {
+    fetch(`${url}/bookings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
