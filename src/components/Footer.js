@@ -60,7 +60,7 @@ function Footer() {
         </div>
         
         <p className='font-primary text-center text-white'>
-          &copy; Western Ambience Bliss Hotel 2023 - All rights reserved.
+          &copy; Western Ambience Bliss Hotel - All rights reserved.
         </p>
       </div>
     </footer>
