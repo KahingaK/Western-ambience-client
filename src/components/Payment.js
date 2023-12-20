@@ -44,7 +44,7 @@ function Payment({price, onClose, bookingId, userId, onBookingSubmit}) {
 
   return (
     <div className="popup">
-    <div className="popup-content w-5/6 lg:w-3/6 max-h-[85%] rounded-xl overflow-auto">
+    <div className="popup-content w-[95%] lg:w-3/6 max-h-[85%] rounded-xl overflow-auto">
       <div className="flex flex-col w-full border p-4 justify-center items-center gap-y-6  ">
       <div className="w-[40%]  py-4">
       <img
