@@ -41,8 +41,9 @@ function handleCloseMenu() {
             <img src={food} alt="" />
           </div>
         </div>
-        <Socials/>
+        
       </div>
+      <Socials/>
   
     </section>
   );

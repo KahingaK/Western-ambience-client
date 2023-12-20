@@ -88,6 +88,7 @@ const TableTwo = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(paymentData),
       });
@@ -147,6 +148,7 @@ const TableTwo = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
           // You might need additional headers based on your requirements
         },
         body: JSON.stringify(payload),
