@@ -54,6 +54,7 @@ const ChatCard = () => {
           if (response.ok) {
             // handleAddReview(data.review);
             console.log(data.review);
+            handleAddReview(data.review)
             setReviewContent("");
             toast.success(data.message, {
               position: "top-center",
