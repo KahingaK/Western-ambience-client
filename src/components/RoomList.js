@@ -10,7 +10,7 @@ function RoomList() {
 
   return (
     <>
-      <section className="py-32">
+      <section className="py-36">
         <div className="container mx-auto lg:px-0">
           <div className="text-center">
             <div className="font-tertiary uppercase text-[15px] tracking-[6px]">

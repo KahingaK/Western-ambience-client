@@ -323,8 +323,8 @@ function RoomDetails() {
                   </div>
                 </div>
                 <div className="mb-6">
-                  <h3 className="h3">Hotel Ruless</h3>
-                  <p>lorem ipsum</p>
+                  <h3 className="h3">Hotel Rules</h3>
+                  <p></p>
                   <ul className="flex flex-col gap-y-4">
                     <li className="flex items-center gap-x-04">
                       <FaCheck className="text-accent" />
@@ -332,7 +332,7 @@ function RoomDetails() {
                     </li>
                     <li className="flex items-center gap-x-04">
                       <FaCheck className="text-accent" />
-                      Check-outz:3;00pm - 9:00pm
+                      Check-out:3;00pm - 9:00pm
                     </li>
                   </ul>
                 </div>
