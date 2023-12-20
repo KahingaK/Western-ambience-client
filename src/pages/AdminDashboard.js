@@ -9,13 +9,14 @@ import HeroSliderAd from "../components/HeroSliderAd";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loading from "../components/Loading";
+import userEvent from "@testing-library/user-event";
 
 function AdminDashboard() {
   const {currentUser} = useContext(UserContext);
   const [showTableThree, setShowTableThree] = useState(true);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const {url, token} = useContext(UserContext)
+  const {url,  token} = useContext(UserContext)
   const data = { title: title, body: message };
   const [isLoading, setIsLoading] = useState(false)
   //SendPost
@@ -86,11 +87,13 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="py-32 container mx-auto">
+    <div className="py-36 container mx-auto">
     { isLoading && <Loading/>}
       <div className="  lg:px-0">
         <div className="text-center">
-          
+        <div className="font-tertiary uppercase text-[15px] tracking-[6px]">
+              Welcome {currentUser.username}
+            </div>
           <div>
             <div>
               <h2 className="font-primary text-[45px]">Home</h2>

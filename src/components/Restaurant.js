@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import food from "../assets/img/food.png";
 import Menu from './Menu';
+import Socials from './Socials';
 
 function Restaurant() {
 const [isShowPopup, setShowPopup] = useState(false)
@@ -16,7 +17,7 @@ function handleCloseMenu() {
   
   
   return (
-    <section className="py-32">
+    <section className="py-36">
       <div className="container mx-auto lg:px-0">
         <div className="text-center">
           <div className="font-tertiary uppercase text-[15px] tracking-[6px]">
@@ -40,7 +41,9 @@ function handleCloseMenu() {
             <img src={food} alt="" />
           </div>
         </div>
+        <Socials/>
       </div>
+  
     </section>
   );
 }

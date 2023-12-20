@@ -333,10 +333,10 @@ const TableTwo = () => {
                           </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                          <p className="text-black dark:text-white">
+                          <p className="text-black">
                           {new Date(booking.start_date).toLocaleDateString("en-GB")}
                           </p>
-                          <p className="text-black dark:text-white">
+                          <p className="text-black">
                           {new Date(booking.end_date).toLocaleDateString("en-GB")}
                           </p>
                         </td>

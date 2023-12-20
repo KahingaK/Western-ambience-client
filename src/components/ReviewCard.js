@@ -124,7 +124,7 @@ const ChatCard = () => {
         </div>
       </div>
 
-      <h4 className="mb-6 mt-6 px-7.5 text-xl font-semibold text-black dark:text-white">
+      <h4 className="mb-6 mt-6 px-7.5 text-xl font-semibold text-black">
         Chats
       </h4>
 
@@ -142,11 +142,11 @@ const ChatCard = () => {
 
               <div className="flex flex-1 items-center justify-between">
                 <div>
-                  <h5 className="font-medium text-black dark:text-white">
+                  <h5 className="font-medium text-black">
                     {review.user.username}
                   </h5>
                   <p>
-                    <span className="text-sm text-black dark:text-white">
+                    <span className="text-sm text-black">
                       {review.content}
                     </span>
                   </p>

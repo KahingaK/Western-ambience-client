@@ -27,8 +27,8 @@ function UserProvider({children}) {
       // navigate("/login")
       setToken(null);
       setCurrentUser(null);
-      toast.success("Logout Success", {
-        position: "top-right",
+      toast.info("Logout Success", {
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
         closeOnClick: true,

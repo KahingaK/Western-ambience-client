@@ -22,7 +22,7 @@ function UserMail({ onClose, bookingId, onSendMail, email }) {
             <div className="border-b  py-4 px-6.5 ">
               <div className="flex flex-col  space-y-4 p-6.5">
                 <div className="space-y-4">
-                  <label className="mb-3 block text-black dark:text-white">
+                  <label className="mb-3 block text-black">
                     Message
                   </label>
                   <input

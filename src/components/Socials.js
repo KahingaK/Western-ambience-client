@@ -66,7 +66,7 @@ function Socials() {
   return (
     <div>
     {isScroll && (
-      <div className="fixed bottom-0 w-full lg:hidden">
+      <div className="fixed bottom-0 w-full lg:hidden z-50">
         <ul className="flex w-full">
           {links.map(({ id, name, href, style, download }) => (
             <li
