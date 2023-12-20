@@ -39,7 +39,7 @@ function Footer() {
 
           </div>
           <div className="text-white p-4">
-          <h3 className="font-secondary uppercase">Other Links</h3>
+          {/* <h3 className="font-secondary uppercase"></h3> */}
           </div>
           
           
