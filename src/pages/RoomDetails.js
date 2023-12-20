@@ -167,7 +167,7 @@ function RoomDetails() {
     } else {
       console.log(data);
       setIsLoading(false);
-      toast.error(`Error ${data[0]} ${data[1]}}`, {
+      toast.error(`Error ${data[0]} ${data.error}}`, {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: true,
