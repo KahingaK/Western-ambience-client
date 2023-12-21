@@ -30,9 +30,8 @@ export default function Login() {
       body: JSON.stringify({ email, password }),
     })
       .then((response) => {
-       
-
-        if (response.ok) {
+        setIsLoading(false);    
+         if (response.ok) {
           response.json().then((data) => {
             console.log(data.user);
             toast.success(data.message, {
@@ -49,7 +48,7 @@ export default function Login() {
             cookies.set("user", data.user, { path: "/" });
             navigate("/");
             setToken(data.token);
-            setIsLoading(false);
+           
             setCurrentUser(data.user);
           });
         } else {

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import UserMail from "./UserMail";
 import AdminPayment from "./AdminPayment";
 import Loading from "./Loading";
+import AdminBookForm from "./AdminBookForm";
 
 //Bookings Table
 const TableTwo = () => {
@@ -78,6 +79,13 @@ const TableTwo = () => {
       setFilteredBookings(filteredData);
     }
   };
+
+   //create a new  if user is admin
+   function handleAddBooking(newBooking) {
+    setFilteredBookings([...filteredBookings, newBooking]);
+   
+  }
+  
 
   //POST stkPush for mpesa payment
   const handleSubmitPayment = async (paymentData) => {
@@ -278,6 +286,7 @@ const TableTwo = () => {
         console.log(error);
       });
   }
+  <AdminBookForm handleAddBooking = {handleAddBooking}/>
   
   
   return (
@@ -327,7 +336,7 @@ const TableTwo = () => {
               return (
                 <tr key={booking.id}>
                   <td className="border-b border-[#eee] py-5 px-4 pl-9 xl:pl-11">
-                    <h5 className="font-medium text-black dark:text-white">
+                    <h5 className="font-medium text-black">
                       {booking.user.username}
                     </h5>
                     <p className="text-sm">

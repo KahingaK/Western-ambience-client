@@ -124,7 +124,7 @@ function AdminBookings() {
             if (response.ok) {
               // handleAddRoom(response)
               setPopupOpen(false);
-              handleAddBooking(data);
+              handleAddBooking(data.booking);
               toast.success(data.message, {
                 position: "top-center",
                 autoClose: 3000,
@@ -284,7 +284,8 @@ function AdminBookings() {
     // Delete a room if user is admin
     function handleDeleteBooking(id) {
       const updatedBookings = bookings.filter((booking) => booking.id !== id);
-      setBookings(updatedBookings);
+      setFilteredBookings(updatedBookings)
+     ;
     }
   
     function handleDeleteClick(id) {
