@@ -32,8 +32,7 @@ function Signup() {
         body: JSON.stringify({ username, email, password }),
       })
         .then((response) => {
-          
-
+          setIsLoading(false);
           if (response.ok) {
             response.json().then((data) => {
               console.log(data);
@@ -57,8 +56,7 @@ function Signup() {
             });
           } else {
             response.json().then((err) => {
-              setError(err.error)
-              setIsLoading(false);
+              setError(err.error)             
               toast.error(err.error, {
                 position: "top-center",
                 autoClose: 3000,
@@ -78,7 +76,7 @@ function Signup() {
         });
     } else {
       setError("Password Mismatch");
-      setIsLoading(false);
+     
     }
   };
   return (

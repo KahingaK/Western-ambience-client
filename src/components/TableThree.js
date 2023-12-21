@@ -209,7 +209,7 @@ const TableThree = () => {
 
  function handleDeleteClick(id) {
   setIsLoading(true)
-  fetch(`${url}/${id}`, {
+  fetch(`${url}/rooms/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,

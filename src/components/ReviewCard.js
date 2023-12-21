@@ -54,7 +54,8 @@ const ChatCard = () => {
           if (response.ok) {
             // handleAddReview(data.review);
             console.log(data.review);
-            handleAddReview(data.review)
+            const parsedReview = JSON.parse(data.review);
+            handleAddReview(parsedReview)
             setReviewContent("");
             toast.success(data.message, {
               position: "top-center",
@@ -68,7 +69,7 @@ const ChatCard = () => {
             });
           } else {
             console.log(response.statusText);
-            toast.error(response.statusText || "an error occured", {
+            toast.error( data.error , {
               position: "top-center",
               autoClose: 3000,
               hideProgressBar: true,
@@ -96,6 +97,53 @@ const ChatCard = () => {
         console.log(error);
       });
   }
+
+  // Delete a room if user is admin
+  function handleDeleteReview(id) {
+    const updatedReviews = reviews.filter((review) => review.id !== id);
+    setReviews(updatedReviews);
+  }
+
+ function handleDeleteClick(id) {
+  setIsLoading(true)
+  fetch(`${url}/reviews/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+    
+  })
+  .then((response) => {
+    setIsLoading(false)
+    if (response.ok) {
+      handleDeleteReview(id);
+      toast.success("Deleted", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      response.text().then(errorMessage => {
+        // Handle error message here
+        toast.error(errorMessage, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      });
+    }
+  });
+}
 
   return (
     <div className="col-span-12 h-[500px] overflow-y-auto rounded-sm  bg-white px-4 py-6 shadow-default  xl:col-span-4">
@@ -156,8 +204,12 @@ const ChatCard = () => {
                 </div>
 
                 {/* Delete SVG */}
-                <div className="cursor-pointer">
-                  <MdDeleteOutline />
+                <div className="cursor-pointer"
+                            >
+                <button 
+                onClick={() => handleDeleteClick(review.id)}
+                ><MdDeleteOutline /></button>
+                  
                 </div>
               </div>
             </div>

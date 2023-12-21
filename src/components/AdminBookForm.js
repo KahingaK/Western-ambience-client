@@ -9,7 +9,7 @@ import { RoomContext } from "../context/RoomContext";
 import { UserContext } from "../context/UserContext";
 import Loading from "./Loading";
 
-function AdminBookForm() {
+function AdminBookForm({handleAddBooking}) {
   
   const [rooms, setRooms] = useState([]);
   const [roomId, setRoomId] = useState("");
@@ -57,11 +57,11 @@ function AdminBookForm() {
     })
     .then((response) => {
       response.json().then((data) => {
-      
+        refresh();
+        setRoom("Room");
         console.log(response);
         setIsLoading(false)
         if (response.ok) {
-         
           toast.success(data.message, {
             position: "top-center",
             autoClose: 3000,
@@ -72,6 +72,7 @@ function AdminBookForm() {
             progress: undefined,
             theme: "colored",
           });
+          handleAddBooking(data.booking)
         } else {
           
           console.log(response.statusText);
@@ -86,8 +87,7 @@ function AdminBookForm() {
             theme: "colored",
           });
         }
-        refresh();
-        setRoom("Room");
+        
 
       })
       .catch((error) => {

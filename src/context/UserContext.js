@@ -17,7 +17,6 @@ function UserProvider({children}) {
     const [currentUser, setCurrentUser] = useState(cookies.get('user') || null)
     const url = "https://westernambiencehotel.online"
 
-    console.log(currentUser);
 
     const logout = () => {
 
