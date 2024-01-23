@@ -15,11 +15,11 @@ function Footer() {
       },
       {
         icon: <FaLinkedinIn />,
-        href: "https://www.linkedin.com/company/cosmoplan-consultants/",
+        href: "/",
       },
       {
         icon: <IoLogoFacebook />,
-        href: "https://www.facebook.com/profile.php?id=61551637924199&mibextid=ZbWKwL",
+        href: "https://www.facebook.com/WesternAmbienceHotel",
       },
     ],
     copyright: "cosmoplan 2023 - All Rights Reserved.",
@@ -52,7 +52,7 @@ function Footer() {
                   key={index}
                 >
                 
-                  <a href='/'>{item.icon}</a>
+                  <a href={item.href} >{item.icon}</a>
                 </div>
               );
             })}
