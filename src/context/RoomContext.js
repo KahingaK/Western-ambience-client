@@ -11,10 +11,9 @@ function RoomProvider({children}) {
     const [rooms, setRooms] = useState(roomData)
     const [guests, setGuests] = useState("Guests")
     const [start, setStart] = useState(false);
-    console.log(start);
-  
+    const [selectedAddOn, setSelectedAddOn] = useState("Room");  
     const [end, setEnd] = useState(false);
-    console.log(end);
+
      
     function refresh() {
       setStart(false)
@@ -34,7 +33,7 @@ function RoomProvider({children}) {
 
   
 
-  const value = useMemo(() => ({ rooms, guests, setGuests, start, setStart , end, setEnd, handleSubmitEvent , refresh}));
+  const value = useMemo(() => ({ rooms, guests, setGuests, start, setStart , end, setEnd, handleSubmitEvent , refresh, selectedAddOn, setSelectedAddOn}));
     
 
   return (

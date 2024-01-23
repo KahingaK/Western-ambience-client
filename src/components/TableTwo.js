@@ -364,7 +364,7 @@ const TableTwo = () => {
                   <td className="border-b border-[#eee] py-5 px-4">
                     <div className="flex items-center space-x-3.5">
                       <button
-                        className=" "
+                        className="  "
                         onClick={() => {
                           handleMessagePopup(booking.id);
                           setBookingId(booking.id);
@@ -381,7 +381,7 @@ const TableTwo = () => {
                           setBooking(booking)
                         }}
                       >
-                        <BsCash />
+                        {/* <BsCash /> */}
                       </button>
                      
                     </div>
@@ -391,7 +391,7 @@ const TableTwo = () => {
             })}
         </tbody>
       </table>
-      {isPaymentPopupOpen && (
+      {/* {isPaymentPopupOpen && (
                         <AdminPayment
                           onClose={handleClosePopup}
                           onStkQuery={handleStkQuery}
@@ -401,7 +401,7 @@ const TableTwo = () => {
 
                           // Other MailPopup props
                         />
-                      )}
+                      )} */}
       {isMailPopupOpen && (
         <UserMail
           onClose={handleClosePopup}

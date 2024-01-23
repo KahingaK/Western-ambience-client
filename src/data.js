@@ -47,7 +47,7 @@ export const roomData = [
 
     facilities: [
       { name: 'Wifi', icon: <FaWifi /> },
-      { name: 'Apatrment-style', icon: <FaUserFriends /> },
+      { name: 'Apatarment-style', icon: <FaUserFriends /> },
       { name: 'Bath', icon: <FaBath /> },
       { name: 'Drinks', icon: <FaCocktail /> },
     ],

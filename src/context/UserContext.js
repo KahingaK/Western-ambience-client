@@ -15,7 +15,7 @@ function UserProvider({children}) {
     // const navigate = useNavigate();
     const [token, setToken] = useState(cookies.get('token') || null);
     const [currentUser, setCurrentUser] = useState(cookies.get('user') || null)
-    const url = "https://westernambiencehotel.online"
+    const url = "http://127.0.0.1:3000"
 
 
     const logout = () => {
