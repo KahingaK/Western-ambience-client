@@ -26,7 +26,7 @@ function Header() {
         <a href="/">
         <div className="flex items-center">
         <img className=" w-20" alt="logo" src={logo}/>
-        <h3 className=" font-primary text-xl font-semibold text-accent w-full ">Western Ambience Hotel</h3>
+        <h3 className=" font-primary text-xl font-semibold text-accent w-full ">Western Ambience Bliss Hotel</h3>
         </div>
         
         </a>
@@ -57,7 +57,7 @@ function Header() {
               Restaurant
             </Link>
             <Link
-              to = "/rooms"
+              to = "/services"
               
               className="transition hover:text-accent cursor-pointer"
             >

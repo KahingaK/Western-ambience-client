@@ -12,11 +12,14 @@ function Room({ room }) {
     <>
       <div className="bg-white shadow-2xl min-h-[500px] group">
         <div className="overflow-hidden">
+        <Link to={`/room/${id}`}>
           <img
             className="group-hover:scale-110 transition-all duratiom-300 w-full"
             src={image}
+           
             alt=""
           />
+          </Link>
         </div>
         <div className="bg-white shadow-lg max-w-[300px] mx-auto h-[60px] -translate-y-1/2 flex justify-center items-center uppercase font-tertiary tracking-[1px] font-semibold text-base">
           <div className="flex justify-between w-[80%]">

@@ -359,7 +359,7 @@ function RoomDetails() {
                       className={({ active, checked }) =>
                         `${active ? "ring-2 ring-white/60 ring-offset-2" : ""}
                   ${checked ? "bg-accent text-white" : "bg-white"}
-                    relative flex cursor-pointer border w-full rounded-lg px-8 py-2 shadow-md focus:outline-none`
+                    relative flex cursor-pointer border w-full px-8 py-2 shadow-md focus:outline-none`
                       }
                     >
                       {({ active, checked }) => (

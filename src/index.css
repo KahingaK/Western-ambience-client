@@ -89,6 +89,8 @@
 input::placeholder {
   color: var(--placeholder-color);
 }
+
+
 /* 
 .grid-container-1 {
   display: grid;

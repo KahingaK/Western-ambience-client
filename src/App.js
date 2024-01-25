@@ -39,7 +39,7 @@ function App() {
           />
           <Route path="/rooms" element={<RoomList />}></Route>
           <Route path="/restaurant" element={<Restaurant />}></Route>
-          <Route path="/services" element={<Services />}></Route>
+          <Route path="/services" element={<Services/>}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
 
