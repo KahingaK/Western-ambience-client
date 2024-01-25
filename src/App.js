@@ -19,6 +19,7 @@ import Services from "./components/Services";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBookings from "./components/AdminBookings";
 
+
 // import { FaSteamSquare } from 'react-icons/fa';
 // import { UserContext } from './context/UserContext';
 
@@ -30,7 +31,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <ScrollToTop />
+        <ScrollToTop />
         <Header />
         <Routes>
           <Route
@@ -39,7 +40,8 @@ function App() {
           />
           <Route path="/rooms" element={<RoomList />}></Route>
           <Route path="/restaurant" element={<Restaurant />}></Route>
-          <Route path="/services" element={<Services/>}></Route>
+          <Route path="/services" element={<Services />}></Route>
+
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
 
