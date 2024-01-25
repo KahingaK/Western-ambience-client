@@ -1,10 +1,14 @@
 // rooms images
-import Room1Img from './assets/img/rooms/1.jpg';
-import Room1ImgLg from './assets/img/rooms/1.jpg';
-import Room2Img from './assets/img/rooms/2.jpg';
-import Room2ImgLg from './assets/img/rooms/2.jpg';
-import Room3Img from './assets/img/rooms/1.jpg';
-import Room3ImgLg from './assets/img/rooms/1.jpg';
+import Room1Img from "./assets/img/rooms/1.jpg";
+import Room1ImgLg from "./assets/img/rooms/1.jpg";
+import Room2Img from "./assets/img/rooms/2.jpg";
+import Room2ImgLg from "./assets/img/rooms/2.jpg";
+import Room3Img from "./assets/img/rooms/1.jpg";
+import Room3ImgLg from "./assets/img/rooms/1.jpg";
+import Hbd from "./assets/img/services/birthday.jpeg"
+import Catering from "./assets/img/services/catering.jpeg"
+import Conferencing from "./assets/img/services/conference.jpeg"
+import Team from "./assets/img/services/team.jpeg"
 
 // import icons
 import {
@@ -18,19 +22,19 @@ import {
   FaCocktail,
   FaBed,
   FaUserFriends,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 
 export const roomData = [
   {
     id: 1,
-    name: 'Standard Room',
+    name: "Standard Room",
     type: "Single",
     description:
-      'Designed with your convenience in mind, our Standard Room provides you with suitable features and amenities for an enjoyable stay at Western Ambience Hotel.',
+      "Designed with your convenience in mind, our Standard Room provides you with suitable features and amenities for an enjoyable stay at Western Ambience Hotel.",
     facilities: [
-      { name: '1 Queen-size bed', icon: <FaBed /> },
-      { name: 'Bath', icon: <FaBath /> },
-      { name: 'Drinks', icon: <FaCocktail /> },
+      { name: "1 Queen-size bed", icon: <FaBed /> },
+      { name: "Bath", icon: <FaBath /> },
+      { name: "Drinks", icon: <FaCocktail /> },
     ],
     size: 30,
     maxPerson: 2,
@@ -40,16 +44,16 @@ export const roomData = [
   },
   {
     id: 2,
-    name: 'Deluxe Room',
+    name: "Deluxe Room",
     type: "Suite",
     description:
-      'A convenient option for traveling families or groups, the Deluxe Room provides a comfortable experience during your stay at Western Ambience Hotel.',
+      "A convenient option for traveling families or groups, the Deluxe Room provides a comfortable experience during your stay at Western Ambience Hotel.",
 
     facilities: [
-      { name: 'Wifi', icon: <FaWifi /> },
-      { name: 'Apatarment-style', icon: <FaUserFriends /> },
-      { name: 'Bath', icon: <FaBath /> },
-      { name: 'Drinks', icon: <FaCocktail /> },
+      { name: "Wifi", icon: <FaWifi /> },
+      { name: "Apatarment-style", icon: <FaUserFriends /> },
+      { name: "Bath", icon: <FaBath /> },
+      { name: "Drinks", icon: <FaCocktail /> },
     ],
     size: 70,
     maxPerson: 5,
@@ -59,15 +63,15 @@ export const roomData = [
   },
   {
     id: 3,
-    name: 'Family Suite',
+    name: "Family Suite",
     type: "Double",
     description:
-      'Our Family Suite provides guests with the comfort and flexibility they need. This is an ideal option for friends or smaller families.',
+      "Our Family Suite provides guests with the comfort and flexibility they need. This is an ideal option for friends or smaller families.",
     facilities: [
-      { name: 'Wifi', icon: <FaWifi /> },
-      { name: 'Coffee', icon: <FaCoffee /> },
-      { name: 'Bath', icon: <FaBath /> },
-      { name: 'Drinks', icon: <FaCocktail /> },
+      { name: "Wifi", icon: <FaWifi /> },
+      { name: "Coffee", icon: <FaCoffee /> },
+      { name: "Bath", icon: <FaBath /> },
+      { name: "Drinks", icon: <FaCocktail /> },
     ],
     size: 50,
     maxPerson: 4,
@@ -75,6 +79,7 @@ export const roomData = [
     image: Room3Img,
     imageLg: Room3ImgLg,
   },
+
   // {
   //   id: 4,
   //   name: 'Luxury Room',
@@ -180,4 +185,48 @@ export const roomData = [
   //   image: Room8Img,
   //   imageLg: Room8ImgLg,
   // },
+];
+
+export const services = [
+  {
+    id: 1,
+    name: "Outdoor Catering",
+    description:
+      "Immerse your guests in a culinary journey with our Outdoor Catering services. Whether it's a wedding celebration, corporate event, or a special gathering, our expert chefs craft a bespoke menu to tantalize taste buds.  Trust us to bring the flavors of Westernambiencebliss to your special occasions.",
+
+    
+    image: Catering,
+ 
+  },
+  {
+    id: 2,
+    name: "Birthday Celebrations",
+    description:
+      "Celebrate life's milestones with style at Westernambiencebliss.  Whether you're planning an intimate family gathering or a lively party with friends, our dedicated team ensures seamless coordination, creating an ambiance that reflects your unique style and personality.",
+
+   
+    image: Hbd,
+ 
+  },
+  {
+    id: 3,
+    name: "Conferencing",
+    description:
+      "Elevate your business events with our well-equipped venue. With professional event planning and technical support, ensure a productive and comfortable environment for your attendees. From small boardroom meetings to large-scale conferences, we cater to your business needs with precision and care.",
+    image: Conferencing,
+ 
+  },
+
+  
+
+  {
+    id: 4,
+    name: "Team Building",
+    description:
+      "Foster teamwork and camaraderie with our tailored Team Building programs. At Westernambiencebliss, we offer engaging and interactive activities designed to strengthen bonds among your team members.  Boost morale, enhance communication, and inspire creativity with our unique team-building experiences.",
+
+   
+    image: Team,
+  
+  },
 ];

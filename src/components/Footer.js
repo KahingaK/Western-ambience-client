@@ -32,7 +32,7 @@ function Footer() {
           <div className="p-4">
           <a className='mb-6 lg:mb-0 lg:self-center' href='/'>
             {/* <img className = " h-9 lg:h-18" src={Logo} alt="" loading="lazy"/> */}
-            <h3 className="h3 text-accent">Western Bliss</h3>            
+            <h3 className="h3 text-accent">Western Ambience Bliss</h3>            
           </a>
           <p className='font-primary text-xl p-2 text-white'>+254 797180181</p>
         <a href = "mailto:westernambiencehotel@gmail.com" className=' font-primary p-2 text-xl text-white'>westernambiencehotel@gmail.com</a>
