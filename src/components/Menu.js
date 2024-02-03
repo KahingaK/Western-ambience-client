@@ -1,7 +1,28 @@
-import React from 'react'
+import React , {useContext, useEffect, useState} from 'react'
 import menu from "../assets/menu.jpg"
+import { UserContext } from '../context/UserContext';
 
 function Menu({onClose}) {
+  const [image, setImage] = useState()
+  const {url} = useContext(UserContext)
+
+  useEffect(() => {
+    //Fetch menu
+    fetch(`${url}/restaurants`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setImage(data.image_url);
+      })
+      .catch((error) => {
+        console.log("Error fetching Rooms: ", error);
+      });
+  }, []);
   return (
     <div className="popup">
     <div className="popup-menu lg:max-h-screen  lg:w-auto w-[95%] max-h-screen overflow-auto">
@@ -11,7 +32,7 @@ function Menu({onClose}) {
         </span>
         <div className="h-full">
           <img
-            src={menu}
+            src={image}
             alt="ambience hotel menu"
             className="w-full h-full"
           />
