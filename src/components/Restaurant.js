@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import food from "../assets/img/food.png";
 import Menu from './Menu';
 import Socials from './Socials';
@@ -13,9 +13,27 @@ function Restaurant() {
 
 const [isShowPopup, setShowPopup] = useState(false)
 const [image, setImage] = useState(null);
+const [imageData, setImageData] = useState("")
   const { url, currentUser,token } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    //Fetch menu
+    fetch(`${url}/restaurants`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setImageData(data.image_url);
+      })
+      .catch((error) => {
+        console.log("Error fetching Rooms: ", error);
+      });
+  }, []);
 
 function handleShowMenu() {
   setShowPopup(true)
@@ -121,7 +139,7 @@ handleSendMenu();
             onClick={handleShowMenu}
             className='btn btn-primary uppercase mx-auto h-14 w-48 py-4 px-12'>See Menu</button>
           </div>
-          {isShowPopup && <Menu
+          {isShowPopup && <Menu imageData = {imageData}
           onClose={handleCloseMenu}
           />}
           
