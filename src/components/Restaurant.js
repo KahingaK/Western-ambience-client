@@ -128,8 +128,8 @@ handleSendMenu();
             <h2 className="font-primary text-4xl mb-4">Visit our Kitchen</h2>
             <p className='font-secondary mb-8 max-w-[620px]'>Come indulge your senses at Western Ambience Hotel. We are proud to provide unique and exceptional food and drink options from our talented kitchen and bar staff, who work hard all year to come up with inspired seasonal menus. Join us for an unforgettable culinary experience. Browse our menu and contact us in advance for reservations or with any questions.</p>
            <div className='flex flex-col justify-center items-center gap-y-4 p-4'>
-           {currentUser.role === "admin"? <DropZone setImage={setImage}/> : null}
-            {currentUser.role === "admin"?  <button className="btn btn-primary py-4 h-14 w-48 text-white" onClick={handleSubmitMenu}>
+           {currentUser && currentUser.role === "admin"? <DropZone setImage={setImage}/> : null}
+            {currentUser && currentUser.role === "admin"?  <button className="btn btn-primary py-4 h-14 w-48 text-white" onClick={handleSubmitMenu}>
                   New Menu <MdAddBox/>
                   </button>  : null}
            </div>
