@@ -434,7 +434,7 @@ function RoomDetails() {
                         className="btn   btn-lg btn-primary w-full"
                         onClick={handleSubmitBooking}
                       >
-                        book now for {totalPrice}
+                        book now from {totalPrice}
                       </button>
                       {/* {payPopup && (
         <Payment
