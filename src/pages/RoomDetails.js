@@ -53,8 +53,8 @@ function RoomDetails() {
   }
   //Functions to calculate payments
   const addOns = [
-    { title: "Bed and Breakfast", price: 300 },
-    { title: "Fullboard", price: 900 },
+    { title: "Bed and Breakfast", price: 500 },
+    { title: "Fullboard", price: 1000 },
     // Add more add-ons as needed
   ];
 

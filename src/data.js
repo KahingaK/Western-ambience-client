@@ -36,14 +36,14 @@ export const roomData = [
       { name: "Bath", icon: <FaBath /> },
       { name: "Drinks", icon: <FaCocktail /> },
     ],   
-    price: 115,
+    price: 2200,
     image: Room1Img,
     imageLg: Room1ImgLg,
   },
   {
     id: 2,
     name: "Deluxe Room",
-    type: "Suite",
+    type: "Double",
     description:
       "A convenient option for traveling families or groups, the Deluxe Room provides a comfortable experience during your stay at Western Ambience Hotel.",
 
@@ -53,14 +53,14 @@ export const roomData = [
       { name: "Bath", icon: <FaBath /> },
       { name: "Drinks", icon: <FaCocktail /> },
     ],
-    price: 220,
+    price: 2700,
     image: Room2Img,
     imageLg: Room2ImgLg,
   },
   {
     id: 3,
-    name: "Family Suite",
-    type: "Double",
+    name: "Executive Suite",
+    type: "Suite",
     description:
       "Our Family Suite provides guests with the comfort and flexibility they need. This is an ideal option for friends or smaller families.",
     facilities: [
@@ -69,7 +69,7 @@ export const roomData = [
       { name: "Bath", icon: <FaBath /> },
       { name: "Drinks", icon: <FaCocktail /> },
     ],
-    price: 265,
+    price: 3700,
     image: Room3Img,
     imageLg: Room3ImgLg,
   },
