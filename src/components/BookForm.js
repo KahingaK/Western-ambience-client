@@ -109,7 +109,7 @@ function BookForm() {
             type="button"
             onClick={handleCheckNow}
           >
-            Check AVAILABILITY
+            Check Availability
           </button>
         </div>
       </form>
