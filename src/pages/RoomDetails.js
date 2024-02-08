@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import Payment from "../components/Payment";
 import { Menu } from "@headlessui/react";
 import { RadioGroup } from "@headlessui/react";
+import EmailBooking from "../components/EmailBooking";
+
 
 //icons
 import { FaCheck } from "react-icons/fa";
@@ -28,7 +30,7 @@ function RoomDetails() {
     refresh,
   } = useContext(RoomContext);
   const { url, token } = useContext(UserContext);
-  const [payPopup, setPayPopup] = useState(false);
+  const [mailPopup, setMailPopup] = useState(false);
   const [checkoutId, setCheckoutId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,30 +39,17 @@ function RoomDetails() {
     return room.id === Number(id);
   });
 
-  function showPayPopup() {
+  function showPopup() {
     if (token) {
-      setPayPopup(true);
+      handleSubmitBooking()
     } else {
-      // Handle the case when the token is not available, e.g., show an error message
-      console.error(
-        "Token is not available. Please log in or obtain a valid token."
-      );
-      refresh();
-      toast.error("You must be logged in to create a booking", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      // Handle the case when the token is not available,
+      setMailPopup(true);
     }
   }
 
-  function closePayPopup() {
-    setPayPopup(false);
+  function closeMailPopup() {
+    setMailPopup(false);
   }
   //Functions to calculate payments
   const addOns = [
@@ -260,6 +249,70 @@ function RoomDetails() {
     }
   }
 
+  async function handleSubmitBookingUnauthenticated(mail) {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${url}/bookings_new`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email:mail,
+          start_date: start,
+          end_date: end,
+          notes: guests,
+          room_type: room.type,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+
+        refresh();
+        setIsLoading(false);
+        toast.success(`Booking received`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        console.log(data);
+        setIsLoading(false);
+        toast.error(`Error ${data[0]} ${data.error}}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  }
+ 
+
   function CheckIcon(props) {
     return (
       <svg viewBox="0 0 24 24" fill="none" {...props}>
@@ -274,6 +327,8 @@ function RoomDetails() {
       </svg>
     );
   }
+
+
   //POST stkPush for mpesa payment
   // const handleSubmitPayment = async (paymentData) => {
   //   setIsLoading(true);
@@ -432,19 +487,18 @@ function RoomDetails() {
                     <div className="h-[60px]">
                       <button
                         className="btn   btn-lg btn-primary w-full"
-                        onClick={handleSubmitBooking}
+                        onClick={showPopup}
                       >
                         book now from {totalPrice}
                       </button>
-                      {/* {payPopup && (
-        <Payment
-          onClose={closePayPopup}
-          onBookingSubmit={handleSubmitBooking}
-          price = {room.price}
+                      {mailPopup && (
+        <EmailBooking
+          onClose={closeMailPopup}
+          onBookingSubmit={handleSubmitBookingUnauthenticated}
           
           
         />
-      )} */}
+      )}
                     </div>
                   </div>
                 </div>

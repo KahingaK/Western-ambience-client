@@ -18,6 +18,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Services from "./components/Services";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBookings from "./components/AdminBookings";
+import ResetPassword from "./components/ResetPassword";
 
 
 // import { FaSteamSquare } from 'react-icons/fa';
@@ -44,6 +45,7 @@ function App() {
 
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/reset" element={<ResetPassword />}></Route>
 
           <Route
             path="/admin-bookings"
